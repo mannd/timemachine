@@ -1,0 +1,507 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8E4D453B1D08B83400468D56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D453A1D08B83400468D56 /* AppDelegate.swift */; };
+		8E4D453D1D08B83400468D56 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D453C1D08B83400468D56 /* ViewController.swift */; };
+		8E4D45401D08B83400468D56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4D453E1D08B83400468D56 /* Main.storyboard */; };
+		8E4D45421D08B83400468D56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E4D45411D08B83400468D56 /* Assets.xcassets */; };
+		8E4D45451D08B83400468D56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4D45431D08B83400468D56 /* LaunchScreen.storyboard */; };
+		8E4D45501D08B83400468D56 /* timemachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D454F1D08B83400468D56 /* timemachineTests.swift */; };
+		8E4D455B1D08B83400468D56 /* timemachineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D455A1D08B83400468D56 /* timemachineUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8E4D454C1D08B83400468D56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E4D452F1D08B83400468D56 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E4D45361D08B83400468D56;
+			remoteInfo = timemachine;
+		};
+		8E4D45571D08B83400468D56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8E4D452F1D08B83400468D56 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8E4D45361D08B83400468D56;
+			remoteInfo = timemachine;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8E4D45371D08B83400468D56 /* timemachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = timemachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E4D453A1D08B83400468D56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8E4D453C1D08B83400468D56 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8E4D453F1D08B83400468D56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8E4D45411D08B83400468D56 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8E4D45441D08B83400468D56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8E4D45461D08B83400468D56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E4D454B1D08B83400468D56 /* timemachineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = timemachineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E4D454F1D08B83400468D56 /* timemachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timemachineTests.swift; sourceTree = "<group>"; };
+		8E4D45511D08B83400468D56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E4D45561D08B83400468D56 /* timemachineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = timemachineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E4D455A1D08B83400468D56 /* timemachineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timemachineUITests.swift; sourceTree = "<group>"; };
+		8E4D455C1D08B83400468D56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8E4D45341D08B83400468D56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E4D45481D08B83400468D56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E4D45531D08B83400468D56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8E4D452E1D08B83400468D56 = {
+			isa = PBXGroup;
+			children = (
+				8E4D45391D08B83400468D56 /* timemachine */,
+				8E4D454E1D08B83400468D56 /* timemachineTests */,
+				8E4D45591D08B83400468D56 /* timemachineUITests */,
+				8E4D45381D08B83400468D56 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8E4D45381D08B83400468D56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8E4D45371D08B83400468D56 /* timemachine.app */,
+				8E4D454B1D08B83400468D56 /* timemachineTests.xctest */,
+				8E4D45561D08B83400468D56 /* timemachineUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8E4D45391D08B83400468D56 /* timemachine */ = {
+			isa = PBXGroup;
+			children = (
+				8E4D453A1D08B83400468D56 /* AppDelegate.swift */,
+				8E4D453C1D08B83400468D56 /* ViewController.swift */,
+				8E4D453E1D08B83400468D56 /* Main.storyboard */,
+				8E4D45411D08B83400468D56 /* Assets.xcassets */,
+				8E4D45431D08B83400468D56 /* LaunchScreen.storyboard */,
+				8E4D45461D08B83400468D56 /* Info.plist */,
+			);
+			path = timemachine;
+			sourceTree = "<group>";
+		};
+		8E4D454E1D08B83400468D56 /* timemachineTests */ = {
+			isa = PBXGroup;
+			children = (
+				8E4D454F1D08B83400468D56 /* timemachineTests.swift */,
+				8E4D45511D08B83400468D56 /* Info.plist */,
+			);
+			path = timemachineTests;
+			sourceTree = "<group>";
+		};
+		8E4D45591D08B83400468D56 /* timemachineUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8E4D455A1D08B83400468D56 /* timemachineUITests.swift */,
+				8E4D455C1D08B83400468D56 /* Info.plist */,
+			);
+			path = timemachineUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8E4D45361D08B83400468D56 /* timemachine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E4D455F1D08B83400468D56 /* Build configuration list for PBXNativeTarget "timemachine" */;
+			buildPhases = (
+				8E4D45331D08B83400468D56 /* Sources */,
+				8E4D45341D08B83400468D56 /* Frameworks */,
+				8E4D45351D08B83400468D56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = timemachine;
+			productName = timemachine;
+			productReference = 8E4D45371D08B83400468D56 /* timemachine.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8E4D454A1D08B83400468D56 /* timemachineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E4D45621D08B83400468D56 /* Build configuration list for PBXNativeTarget "timemachineTests" */;
+			buildPhases = (
+				8E4D45471D08B83400468D56 /* Sources */,
+				8E4D45481D08B83400468D56 /* Frameworks */,
+				8E4D45491D08B83400468D56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E4D454D1D08B83400468D56 /* PBXTargetDependency */,
+			);
+			name = timemachineTests;
+			productName = timemachineTests;
+			productReference = 8E4D454B1D08B83400468D56 /* timemachineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8E4D45551D08B83400468D56 /* timemachineUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8E4D45651D08B83400468D56 /* Build configuration list for PBXNativeTarget "timemachineUITests" */;
+			buildPhases = (
+				8E4D45521D08B83400468D56 /* Sources */,
+				8E4D45531D08B83400468D56 /* Frameworks */,
+				8E4D45541D08B83400468D56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E4D45581D08B83400468D56 /* PBXTargetDependency */,
+			);
+			name = timemachineUITests;
+			productName = timemachineUITests;
+			productReference = 8E4D45561D08B83400468D56 /* timemachineUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8E4D452F1D08B83400468D56 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "EP Studios";
+				TargetAttributes = {
+					8E4D45361D08B83400468D56 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					8E4D454A1D08B83400468D56 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 8E4D45361D08B83400468D56;
+					};
+					8E4D45551D08B83400468D56 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 8E4D45361D08B83400468D56;
+					};
+				};
+			};
+			buildConfigurationList = 8E4D45321D08B83400468D56 /* Build configuration list for PBXProject "timemachine" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8E4D452E1D08B83400468D56;
+			productRefGroup = 8E4D45381D08B83400468D56 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8E4D45361D08B83400468D56 /* timemachine */,
+				8E4D454A1D08B83400468D56 /* timemachineTests */,
+				8E4D45551D08B83400468D56 /* timemachineUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8E4D45351D08B83400468D56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E4D45451D08B83400468D56 /* LaunchScreen.storyboard in Resources */,
+				8E4D45421D08B83400468D56 /* Assets.xcassets in Resources */,
+				8E4D45401D08B83400468D56 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E4D45491D08B83400468D56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E4D45541D08B83400468D56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8E4D45331D08B83400468D56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E4D453D1D08B83400468D56 /* ViewController.swift in Sources */,
+				8E4D453B1D08B83400468D56 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E4D45471D08B83400468D56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E4D45501D08B83400468D56 /* timemachineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E4D45521D08B83400468D56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E4D455B1D08B83400468D56 /* timemachineUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8E4D454D1D08B83400468D56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E4D45361D08B83400468D56 /* timemachine */;
+			targetProxy = 8E4D454C1D08B83400468D56 /* PBXContainerItemProxy */;
+		};
+		8E4D45581D08B83400468D56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8E4D45361D08B83400468D56 /* timemachine */;
+			targetProxy = 8E4D45571D08B83400468D56 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8E4D453E1D08B83400468D56 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8E4D453F1D08B83400468D56 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8E4D45431D08B83400468D56 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8E4D45441D08B83400468D56 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8E4D455D1D08B83400468D56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8E4D455E1D08B83400468D56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8E4D45601D08B83400468D56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = timemachine/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.epstudios.timemachine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8E4D45611D08B83400468D56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = timemachine/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.epstudios.timemachine;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8E4D45631D08B83400468D56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = timemachineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.epstudios.timemachineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/timemachine.app/timemachine";
+			};
+			name = Debug;
+		};
+		8E4D45641D08B83400468D56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = timemachineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.epstudios.timemachineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/timemachine.app/timemachine";
+			};
+			name = Release;
+		};
+		8E4D45661D08B83400468D56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = timemachineUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.epstudios.timemachineUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = timemachine;
+			};
+			name = Debug;
+		};
+		8E4D45671D08B83400468D56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = timemachineUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.epstudios.timemachineUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = timemachine;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8E4D45321D08B83400468D56 /* Build configuration list for PBXProject "timemachine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E4D455D1D08B83400468D56 /* Debug */,
+				8E4D455E1D08B83400468D56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8E4D455F1D08B83400468D56 /* Build configuration list for PBXNativeTarget "timemachine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E4D45601D08B83400468D56 /* Debug */,
+				8E4D45611D08B83400468D56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8E4D45621D08B83400468D56 /* Build configuration list for PBXNativeTarget "timemachineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E4D45631D08B83400468D56 /* Debug */,
+				8E4D45641D08B83400468D56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8E4D45651D08B83400468D56 /* Build configuration list for PBXNativeTarget "timemachineUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E4D45661D08B83400468D56 /* Debug */,
+				8E4D45671D08B83400468D56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8E4D452F1D08B83400468D56 /* Project object */;
+}
