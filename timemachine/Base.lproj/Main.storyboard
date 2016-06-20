@@ -16,7 +16,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="ORIGIN TIME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRB-Qu-SwY">
@@ -270,6 +270,15 @@
                                 <exclude reference="CEY-8T-pQr"/>
                                 <exclude reference="L9T-LM-FPr"/>
                                 <exclude reference="tYG-FY-Inc"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="ONR-QH-4LV"/>
+                                <exclude reference="GBV-Ry-2HR"/>
+                                <exclude reference="R0H-uZ-7D1"/>
+                                <exclude reference="Pe5-YH-RfX"/>
+                                <exclude reference="bbu-aB-Zpf"/>
+                                <exclude reference="MKa-GW-IYH"/>
+                                <exclude reference="tVw-kN-2KK"/>
                             </mask>
                         </variation>
                     </view>
