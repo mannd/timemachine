@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerDidTick), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerDidTick), userInfo: nil, repeats: true)
          
     }
 
@@ -28,8 +28,8 @@ class ViewController: UIViewController {
     func timerDidTick() {
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy MMM d HH:mm:ss.SS"
-        originTimeLabel.text = (dateFormatter.string(from: date))
+        dateFormatter.dateFormat = "yyyy MMM d HH:mm:ss.SSS"
+        originTimeLabel.text = ("CE \(dateFormatter.string(from: date))")
     }
 
 
