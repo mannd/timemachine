@@ -16,7 +16,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="ORIGIN TIME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRB-Qu-SwY">
@@ -29,11 +29,31 @@
                                     <constraint firstAttribute="height" constant="44" id="ePN-Ms-z0h"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="START" id="Kw8-dD-Kqh"/>
-                                    <barButtonItem title="STOP" id="iEP-C4-xIO"/>
-                                    <barButtonItem title="RESET" id="Bhu-2x-bxO"/>
-                                    <barButtonItem title="SETTINGS" id="E7B-mS-2pD"/>
-                                    <barButtonItem title="HELP" id="C7w-zI-ndn"/>
+                                    <barButtonItem title="START" id="Kw8-dD-Kqh">
+                                        <connections>
+                                            <action selector="startButtonAction:" destination="BYZ-38-t0r" id="lag-gs-ed2"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="STOP" id="iEP-C4-xIO">
+                                        <connections>
+                                            <action selector="stopButtonAction:" destination="BYZ-38-t0r" id="7FH-ol-HUq"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="RESET" id="Bhu-2x-bxO">
+                                        <connections>
+                                            <action selector="resetButtonAction:" destination="BYZ-38-t0r" id="1p4-df-yJQ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="SETTINGS" id="E7B-mS-2pD">
+                                        <connections>
+                                            <action selector="settingsButtonAction:" destination="BYZ-38-t0r" id="WbK-lO-amN"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="HELP" id="C7w-zI-ndn">
+                                        <connections>
+                                            <action selector="helpButtonAction:" destination="BYZ-38-t0r" id="Fp0-CU-3Pc"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BEL-4Q-pVf">
@@ -115,6 +135,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Luq-hh-XQ0"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="controlSliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="30L-Qw-hr6"/>
+                                </connections>
                             </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PARAMETERS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEY-8T-pQr">
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -172,10 +195,16 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FLR-Lp-p1p">
                                         <frame key="frameInset" minX="259" minY="3" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="tauSwitchAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="tDW-VQ-hxz"/>
+                                        </connections>
                                     </switch>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="SjT-QW-D5e">
                                         <frame key="frameInset" minX="259" minY="37" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="velocitySwitchAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="9ZN-fN-gkv"/>
+                                        </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="a (g)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IfS-0J-ol2">
                                         <frame key="frameInset" minX="20" minY="76" width="67" height="21"/>
@@ -195,6 +224,9 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="gIF-tR-Pgj">
                                         <frame key="frameInset" minX="259" minY="71" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="accelerationSwitchAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="hL9-fL-KPx"/>
+                                        </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" fixedFrame="YES" text="N/A" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qzr-Oh-D35">
                                         <frame key="frameInset" minX="123" minY="112" width="185" height="19"/>
@@ -283,7 +315,20 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="accelerationLabel" destination="8Ih-f5-a66" id="j1i-KV-NwA"/>
+                        <outlet property="accelerationSwitch" destination="gIF-tR-Pgj" id="XDN-ua-ykT"/>
+                        <outlet property="controlLabel" destination="tYG-FY-Inc" id="XHI-Ov-CyR"/>
+                        <outlet property="controlSlider" destination="2Qw-2M-Gps" id="uet-yV-hp9"/>
+                        <outlet property="destinationLabel" destination="Qzr-Oh-D35" id="iBo-LA-cTM"/>
                         <outlet property="originTimeLabel" destination="XlX-8l-OnZ" id="rIL-Ud-kOY"/>
+                        <outlet property="tauLabel" destination="DOL-vn-RgH" id="kxb-m5-1ju"/>
+                        <outlet property="tauSwitch" destination="FLR-Lp-p1p" id="Nr1-ec-eOH"/>
+                        <outlet property="tmDayLabel" destination="p2u-qA-Zyx" id="mdp-ll-NLQ"/>
+                        <outlet property="tmMonthLabel" destination="kF4-ae-kWp" id="0mn-1z-7X7"/>
+                        <outlet property="tmTimeLabel" destination="Cyh-Rf-tpv" id="z8K-Y3-iUg"/>
+                        <outlet property="tmYearLabel" destination="Hdl-xH-gpJ" id="g9n-79-WhJ"/>
+                        <outlet property="velocityLabel" destination="oW5-xK-Lxo" id="ZaU-yD-BV7"/>
+                        <outlet property="velocitySwitch" destination="SjT-QW-D5e" id="5dK-xO-Qod"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

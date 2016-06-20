@@ -10,14 +10,45 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // MARK: outlets
     @IBOutlet weak var originTimeLabel: UILabel!
+    @IBOutlet weak var tmYearLabel: UILabel!
+    @IBOutlet weak var tmMonthLabel: UILabel!
+    @IBOutlet weak var tmDayLabel: UILabel!
+    @IBOutlet weak var tmTimeLabel: UILabel!
+    @IBOutlet weak var tauLabel: UILabel!
+    @IBOutlet weak var velocityLabel: UILabel!
+    @IBOutlet weak var accelerationLabel: UILabel!
+    @IBOutlet weak var destinationLabel: UILabel!
+    @IBOutlet weak var tauSwitch: UISwitch!
+    @IBOutlet weak var velocitySwitch: UISwitch!
+    @IBOutlet weak var accelerationSwitch: UISwitch!
+    @IBOutlet weak var controlLabel: UILabel!
+    @IBOutlet weak var controlSlider: UISlider!
+
     var timer: Timer?
+    var originDate: Date?
+    var originDateFormatter: DateFormatter?
+    var tmYearFormatter: DateFormatter?
+    var tmMonthFormatter: DateFormatter?
+    var tmDayFormatter: DateFormatter?
+    var tmTimeFormatter: DateFormatter?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerDidTick), userInfo: nil, repeats: true)
-         
+        originDate = Date()
+        originDateFormatter = DateFormatter()
+        originDateFormatter!.dateFormat = "yyyy MMM d HH:mm:ss.SSS"
+        tmYearFormatter = DateFormatter()
+        tmYearFormatter!.dateFormat = "yyyy"
+        tmMonthFormatter = DateFormatter()
+        tmMonthFormatter!.dateFormat = "MMMM"
+        tmDayFormatter = DateFormatter()
+        tmDayFormatter!.dateFormat = "d"
+        tmTimeFormatter = DateFormatter()
+        tmTimeFormatter!.dateFormat = "HH:mm:ss.SSS"
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,10 +57,75 @@ class ViewController: UIViewController {
     }
     
     func timerDidTick() {
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy MMM d HH:mm:ss.SSS"
-        originTimeLabel.text = ("CE \(dateFormatter.string(from: date))")
+        updateOriginTime()
+        updateTmTime()
+    }
+    
+    private func updateOriginTime() {
+        originDate = Date()
+        originTimeLabel.text = ("CE \(originDateFormatter!.string(from: originDate!))")
+    }
+    
+    private func updateTmTime() {
+        tmYearLabel.text = tmYearFormatter!.string(from: originDate!)
+        tmMonthLabel.text = tmMonthFormatter!.string(from: originDate!)
+        tmDayLabel.text = tmDayFormatter!.string(from: originDate!)
+        tmTimeLabel.text = tmTimeFormatter!.string(from: originDate!)
+    }
+    
+    // MARK: actions
+    @IBAction func tauSwitchAction(_ sender: AnyObject) {
+        if tauSwitch.isOn {
+            velocitySwitch.setOn(false, animated: true)
+            accelerationSwitch.setOn(false, animated: true)
+            controlLabel.text = "TAU"
+            tauLabel.text = "\(controlSlider.value)"
+        }
+        else {
+            controlLabel.text = "CONTROL"
+        }
+    }
+    
+    @IBAction func velocitySwitchAction(_ sender: AnyObject) {
+        if velocitySwitch.isOn {
+            tauSwitch.setOn(false, animated: true)
+            accelerationSwitch.setOn(false, animated: true)
+            controlLabel.text = "VELOCITY"
+            // slider stuff
+        }
+        else {
+            controlLabel.text = "CONTROL"
+        }
+    }
+    
+    @IBAction func accelerationSwitchAction(_ sender: AnyObject) {
+        if accelerationSwitch.isOn {
+            velocitySwitch.setOn(false, animated: true)
+            tauSwitch.setOn(false, animated: true)
+            controlLabel.text = "ACCELERATION"
+            // slider stuff
+        }
+        else {
+            controlLabel.text = "CONTROL"
+        }
+    }
+    
+    @IBAction func controlSliderAction(_ sender: AnyObject) {
+    }
+    
+    @IBAction func startButtonAction(_ sender: AnyObject) {
+    }
+    
+    @IBAction func stopButtonAction(_ sender: AnyObject) {
+    }
+    
+    @IBAction func resetButtonAction(_ sender: AnyObject) {
+    }
+    
+    @IBAction func settingsButtonAction(_ sender: AnyObject) {
+    }
+    
+    @IBAction func helpButtonAction(_ sender: AnyObject) {
     }
 
 
