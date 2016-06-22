@@ -27,28 +27,25 @@ class ViewController: UIViewController {
     @IBOutlet weak var controlSlider: UISlider!
 
     var timer: Timer?
-    var originDate: Date?
-    var originDateFormatter: DateFormatter?
-    var tmYearFormatter: DateFormatter?
-    var tmMonthFormatter: DateFormatter?
-    var tmDayFormatter: DateFormatter?
-    var tmTimeFormatter: DateFormatter?
+    var originDate: Date = Date()
+    let originDateFormatter =  DateFormatter()
+    let tmYearFormatter = DateFormatter()
+    let tmMonthFormatter = DateFormatter()
+    var tmDayFormatter = DateFormatter()
+    var tmTimeFormatter = DateFormatter()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerDidTick), userInfo: nil, repeats: true)
-        originDate = Date()
-        originDateFormatter = DateFormatter()
-        originDateFormatter!.dateFormat = "yyyy MMM d HH:mm:ss.SSS"
-        tmYearFormatter = DateFormatter()
-        tmYearFormatter!.dateFormat = "yyyy"
-        tmMonthFormatter = DateFormatter()
-        tmMonthFormatter!.dateFormat = "MMMM"
-        tmDayFormatter = DateFormatter()
-        tmDayFormatter!.dateFormat = "d"
-        tmTimeFormatter = DateFormatter()
-        tmTimeFormatter!.dateFormat = "HH:mm:ss.SSS"
+        originDateFormatter.dateFormat = "yyyy MMM d HH:mm:ss.SSS"
+        tmYearFormatter.dateFormat = "yyyy"
+        tmMonthFormatter.dateFormat = "MMMM"
+        tmDayFormatter.dateFormat = "d"
+        tmTimeFormatter.dateFormat = "HH:mm:ss.SSS"
+        print ("\(originDateFormatter.string(from: Date.distantFuture))")
+        print ("\(originDateFormatter.string(from: Date.distantPast))")
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,14 +60,14 @@ class ViewController: UIViewController {
     
     private func updateOriginTime() {
         originDate = Date()
-        originTimeLabel.text = ("CE \(originDateFormatter!.string(from: originDate!))")
+        originTimeLabel.text = ("CE \(originDateFormatter.string(from: originDate))")
     }
     
     private func updateTmTime() {
-        tmYearLabel.text = tmYearFormatter!.string(from: originDate!)
-        tmMonthLabel.text = tmMonthFormatter!.string(from: originDate!)
-        tmDayLabel.text = tmDayFormatter!.string(from: originDate!)
-        tmTimeLabel.text = tmTimeFormatter!.string(from: originDate!)
+        tmYearLabel.text = tmYearFormatter.string(from: originDate)
+        tmMonthLabel.text = tmMonthFormatter.string(from: originDate)
+        tmDayLabel.text = tmDayFormatter.string(from: originDate)
+        tmTimeLabel.text = tmTimeFormatter.string(from: originDate)
     }
     
     // MARK: actions
@@ -79,7 +76,9 @@ class ViewController: UIViewController {
             velocitySwitch.setOn(false, animated: true)
             accelerationSwitch.setOn(false, animated: true)
             controlLabel.text = "TAU"
-            tauLabel.text = "\(controlSlider.value)"
+            if let value = Float(tauLabel.text!) {
+                controlSlider.value = value
+            }
         }
         else {
             controlLabel.text = "CONTROL"
@@ -91,8 +90,9 @@ class ViewController: UIViewController {
             tauSwitch.setOn(false, animated: true)
             accelerationSwitch.setOn(false, animated: true)
             controlLabel.text = "VELOCITY"
-            // slider stuff
-        }
+            if let value = Float(velocityLabel.text!) {
+                controlSlider.value = value
+            }        }
         else {
             controlLabel.text = "CONTROL"
         }
@@ -103,14 +103,24 @@ class ViewController: UIViewController {
             velocitySwitch.setOn(false, animated: true)
             tauSwitch.setOn(false, animated: true)
             controlLabel.text = "ACCELERATION"
-            // slider stuff
-        }
+            if let value = Float(accelerationLabel.text!) {
+                controlSlider.value = value
+            }        }
         else {
             controlLabel.text = "CONTROL"
         }
     }
     
     @IBAction func controlSliderAction(_ sender: AnyObject) {
+        if tauSwitch.isOn {
+            tauLabel.text = "\(controlSlider.value)"
+        }
+        else if velocitySwitch.isOn {
+            velocityLabel.text = "\(controlSlider.value)"
+        }
+        else if accelerationSwitch.isOn {
+            accelerationLabel.text = "\(controlSlider.value)"
+        }
     }
     
     @IBAction func startButtonAction(_ sender: AnyObject) {
