@@ -14,6 +14,8 @@
 		8E4D45451D08B83400468D56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4D45431D08B83400468D56 /* LaunchScreen.storyboard */; };
 		8E4D45501D08B83400468D56 /* timemachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D454F1D08B83400468D56 /* timemachineTests.swift */; };
 		8E4D455B1D08B83400468D56 /* timemachineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D455A1D08B83400468D56 /* timemachineUITests.swift */; };
+		8EDF09A01D1B5F2200774D70 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDF099F1D1B5F2200774D70 /* Time.swift */; };
+		8EDF09A11D1B5F2200774D70 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDF099F1D1B5F2200774D70 /* Time.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,7 @@
 		8E4D45561D08B83400468D56 /* timemachineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = timemachineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E4D455A1D08B83400468D56 /* timemachineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timemachineUITests.swift; sourceTree = "<group>"; };
 		8E4D455C1D08B83400468D56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EDF099F1D1B5F2200774D70 /* Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,7 @@
 				8E4D45411D08B83400468D56 /* Assets.xcassets */,
 				8E4D45431D08B83400468D56 /* LaunchScreen.storyboard */,
 				8E4D45461D08B83400468D56 /* Info.plist */,
+				8EDF099F1D1B5F2200774D70 /* Time.swift */,
 			);
 			path = timemachine;
 			sourceTree = "<group>";
@@ -261,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EDF09A01D1B5F2200774D70 /* Time.swift in Sources */,
 				8E4D453D1D08B83400468D56 /* ViewController.swift in Sources */,
 				8E4D453B1D08B83400468D56 /* AppDelegate.swift in Sources */,
 			);
@@ -270,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EDF09A11D1B5F2200774D70 /* Time.swift in Sources */,
 				8E4D45501D08B83400468D56 /* timemachineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

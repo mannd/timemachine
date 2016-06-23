@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: outlets
     @IBOutlet weak var originTimeLabel: UILabel!
@@ -16,11 +16,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var tmMonthLabel: UILabel!
     @IBOutlet weak var tmDayLabel: UILabel!
     @IBOutlet weak var tmTimeLabel: UILabel!
-    @IBOutlet weak var tauLabel: UILabel!
     @IBOutlet weak var velocityLabel: UILabel!
     @IBOutlet weak var accelerationLabel: UILabel!
     @IBOutlet weak var destinationLabel: UILabel!
     @IBOutlet weak var tauSwitch: UISwitch!
+    @IBOutlet weak var tauTextField: UITextField!
     @IBOutlet weak var velocitySwitch: UISwitch!
     @IBOutlet weak var accelerationSwitch: UISwitch!
     @IBOutlet weak var controlLabel: UILabel!
@@ -33,6 +33,8 @@ class ViewController: UIViewController {
     let tmMonthFormatter = DateFormatter()
     var tmDayFormatter = DateFormatter()
     var tmTimeFormatter = DateFormatter()
+    
+    let controlTitle = "CONTROL"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,7 @@ class ViewController: UIViewController {
         tmTimeFormatter.dateFormat = "HH:mm:ss.SSS"
         print ("\(originDateFormatter.string(from: Date.distantFuture))")
         print ("\(originDateFormatter.string(from: Date.distantPast))")
+        tauTextField.delegate = self
 
     }
 
@@ -76,12 +79,12 @@ class ViewController: UIViewController {
             velocitySwitch.setOn(false, animated: true)
             accelerationSwitch.setOn(false, animated: true)
             controlLabel.text = "TAU"
-            if let value = Float(tauLabel.text!) {
+            if let value = Float(tauTextField.text!) {
                 controlSlider.value = value
             }
         }
         else {
-            controlLabel.text = "CONTROL"
+            controlLabel.text = controlTitle
         }
     }
     
@@ -94,7 +97,7 @@ class ViewController: UIViewController {
                 controlSlider.value = value
             }        }
         else {
-            controlLabel.text = "CONTROL"
+            controlLabel.text = controlTitle
         }
     }
     
@@ -107,13 +110,13 @@ class ViewController: UIViewController {
                 controlSlider.value = value
             }        }
         else {
-            controlLabel.text = "CONTROL"
+            controlLabel.text = controlTitle
         }
     }
     
     @IBAction func controlSliderAction(_ sender: AnyObject) {
         if tauSwitch.isOn {
-            tauLabel.text = "\(controlSlider.value)"
+            tauTextField.text = "\(controlSlider.value)"
         }
         else if velocitySwitch.isOn {
             velocityLabel.text = "\(controlSlider.value)"
@@ -137,6 +140,23 @@ class ViewController: UIViewController {
     
     @IBAction func helpButtonAction(_ sender: AnyObject) {
     }
+    
+//    - (IBAction)textFieldDoneEditing:(id)sender {
+//    [sender resignFirstResponder];
+//    }
+//    
+//    - (IBAction)backgroundTap:(id)sender {
+//    [self.numberOfDaysTextField resignFirstResponder];
+//    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
+    
+
 
 
 }
