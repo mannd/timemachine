@@ -45,6 +45,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         tmMonthFormatter.dateFormat = "MMMM"
         tmDayFormatter.dateFormat = "d"
         tmTimeFormatter.dateFormat = "HH:mm:ss.SSS"
+        tmTimeFormatter.timeZone = TimeZone(name: "UTC")
         print ("\(originDateFormatter.string(from: Date.distantFuture))")
         print ("\(originDateFormatter.string(from: Date.distantPast))")
         tauTextField.delegate = self

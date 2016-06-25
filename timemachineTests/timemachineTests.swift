@@ -83,4 +83,38 @@ class timemachineTests: XCTestCase {
 
     }
     
+    func testTime() {
+        print("Max sec = \(Time.maxSec)")
+        print("Min sec = \(Time.minSec)")
+        XCTAssert(Time.epochYear == 1970)
+        let epoch = Time.secsToDateTime(sec: 0)
+        XCTAssert(epoch.year == Time.epochYear)
+        XCTAssert(epoch.sec == 0)
+        let dateTime = Time.secsToDateTime(sec: 365 * 3600 * 24)
+        print ("dateTime.year = \(dateTime.year)")
+        XCTAssert(dateTime.year == 1971)
+        XCTAssert(dateTime.month == 0)
+        XCTAssert(dateTime.day == 1)
+        // add a day
+        let dateTime2 = Time.secsToDateTime(sec: 365 * 3600 * 24 + (3600 * 24))
+        XCTAssert(dateTime2.day == 2)
+        // below times out: figuring out dates is slow for max secs!!
+        //let maxDateTime = Time.secsToDateTime(sec: Time.maxSec)
+        //print("maxDateTime year = \(maxDateTime.year)")
+        
+    }
+    
+    func testNSDateClass() {
+        let date = Date()
+        print("Date = \(date)")
+        // playing around with remote dates, it looks like Date can only handle years upt to 3 million,
+        // and seconds upt to E14.  Thus need for my only time handling class
+        let remoteDate = Date(timeIntervalSince1970: 1E14)
+        print("Remote date = \(remoteDate)")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy"
+        print("Formatted remote date = \(dateFormatter.string(from: remoteDate))")
+        print("Formatted today date = \(dateFormatter.string(from: date))")
+    }
+    
 }
