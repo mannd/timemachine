@@ -28,23 +28,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     var timer: Timer?
     var originDate: Date = Date()
+    var tmDateTime: DateTime = Time.secsToDateTime(sec: Int64(Date().timeIntervalSince1970))
     let originDateFormatter =  DateFormatter()
     let tmYearFormatter = DateFormatter()
     let tmMonthFormatter = DateFormatter()
     var tmDayFormatter = DateFormatter()
     var tmTimeFormatter = DateFormatter()
     
+    var tau: Double = 1.0
+    
     let controlTitle = "CONTROL"
+    let updateInterval = 0.001
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerDidTick), userInfo: nil, repeats: true)
-        originDateFormatter.dateFormat = "yyyy MMM d HH:mm:ss.SSS"
+        timer = Timer.scheduledTimer(timeInterval: updateInterval, target: self, selector: #selector(timerDidTick), userInfo: nil, repeats: true)
+        originDateFormatter.dateFormat = "yyyy MMM d HH:mm:ss"
+        originDateFormatter.timeZone = TimeZone(name: "UTC")
         tmYearFormatter.dateFormat = "yyyy"
         tmMonthFormatter.dateFormat = "MMMM"
         tmDayFormatter.dateFormat = "d"
-        tmTimeFormatter.dateFormat = "HH:mm:ss.SSS"
+        tmTimeFormatter.dateFormat = "HH:mm:ss"
         tmTimeFormatter.timeZone = TimeZone(name: "UTC")
         print ("\(originDateFormatter.string(from: Date.distantFuture))")
         print ("\(originDateFormatter.string(from: Date.distantPast))")
@@ -68,10 +73,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func updateTmTime() {
-        tmYearLabel.text = tmYearFormatter.string(from: originDate)
-        tmMonthLabel.text = tmMonthFormatter.string(from: originDate)
-        tmDayLabel.text = tmDayFormatter.string(from: originDate)
-        tmTimeLabel.text = tmTimeFormatter.string(from: originDate)
+        // test assume tau = 10
+        tau = 10000
+        let updateTimer = updateInterval * tau
+        let secDiff = tau
+        if tau == 1 {
+            tmYearLabel.text = tmYearFormatter.string(from: originDate)
+            tmMonthLabel.text = tmMonthFormatter.string(from: originDate)
+            tmDayLabel.text = tmDayFormatter.string(from: originDate)
+            tmTimeLabel.text = tmTimeFormatter.string(from: originDate)
+        }
+        else {
+            tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: Int64(secDiff))
+            tmYearLabel.text = "\(tmDateTime.year)"
+            tmMonthLabel.text = "\(Time.monthName[tmDateTime.month])"
+            tmDayLabel.text = "\(tmDateTime.day)"
+            tmTimeLabel.text = tmDateTime.formatTime()
+        }
     }
     
     // MARK: actions

@@ -101,7 +101,49 @@ class timemachineTests: XCTestCase {
         // below times out: figuring out dates is slow for max secs!!
         //let maxDateTime = Time.secsToDateTime(sec: Time.maxSec)
         //print("maxDateTime year = \(maxDateTime.year)")
-        
+        var epoch2 = epoch
+        // test overloaded ==
+        XCTAssert(epoch2 == epoch)
+        epoch2.sec = 1
+        XCTAssert(epoch2 != epoch)
+    }
+    
+    func testAddSecsToDateTime() {
+        let time1 = Time.secsToDateTime(sec: 0) // epoch
+        let time2 = Time.addSecsToDateTime(dateTime: time1, sec: Time.secsIn365DayYear)
+        let time2PlusYear = DateTime(era: Era.CE, year: 1971, month: 0, day: 1, hour: 0, min: 0, sec: 0)
+        XCTAssert(time2 == time2PlusYear)
+        time2.printDate()
+        let time3 = Time.secsToDateTime(sec: 35)
+        let time4 = Time.addSecsToDateTime(dateTime: time3, sec: 35)
+        let time5 = DateTime(era: Era.CE, year: 1970, month: 0, day: 1, hour: 0, min: 1, sec: 10)
+        XCTAssert(time4 == time5)
+        time4.printDate()
+        time5.printDate()
+        // add 1 month to Jan 1, 1970
+        let time6 = Time.addSecsToDateTime(dateTime: time1, sec: 31 * Time.secsInDay)
+        let time7 = DateTime(era: Era.CE, year: 1970, month: 1, day: 1, hour: 0, min: 0, sec: 0)
+        XCTAssert(time6 == time7)
+        time6.printDate()
+        time7.printDate()
+        // Feb leap year
+        let time8 = DateTime(era: Era.CE, year: 1980, month: 1, day: 1, hour: 0, min: 0, sec: 0)
+        let time9 = Time.addSecsToDateTime(dateTime: time8, sec: 28 * Time.secsInDay)
+        let time10 = DateTime(era: Era.CE, year: 1980, month: 1, day: 29, hour: 0, min: 0, sec: 0)
+        XCTAssert(time9 == time10)
+        // Feb no leap year
+        let time11 = DateTime(era: Era.CE, year: 1981, month: 1, day: 1, hour: 0, min: 0, sec: 0)
+        let time12 = Time.addSecsToDateTime(dateTime: time11, sec: 28 * Time.secsInDay)
+        let time13 = DateTime(era: Era.CE, year: 1981, month: 2, day: 1, hour: 0, min: 0, sec: 0)
+        XCTAssert(time12 == time13)
+        // Arbitrary long date-time jump
+        let time14 = DateTime(era: Era.CE, year: 2017, month: 11, day: 13, hour: 13, min: 23, sec: 45)
+        let time15 = Time.addSecsToDateTime(dateTime: time14, sec: 165335743)
+        let time16 = DateTime(era: Era.CE, year: 2023, month: 2, day: 11, hour: 3, min: 59, sec: 28)
+        time14.printDate()
+        time15.printDate()
+        time16.printDate()
+        XCTAssert(time15 == time16)
     }
     
     func testNSDateClass() {

@@ -21,6 +21,31 @@ struct DateTime {
     var hour: Int = 0
     var min: Int = 0
     var sec = 0
+    
+    func printDate() {
+        let date = (era == Era.CE ? "CE ": "BCE ") + "\(year) \(Time.monthName[month]) \(day) \(hour):\(min):\(sec)"
+        print(date)
+    }
+    func formatTime() -> String {
+        let hourString = hour < 10 ? "0\(hour)" : "\(hour)"
+        let minString = min < 10 ? "0\(min)" : "\(min)"
+        let secString = sec < 10 ? "0\(sec)" : "\(sec)"
+        return hourString + ":" + minString + ":" + secString
+    }
+}
+
+func ==(lhs: DateTime, rhs: DateTime) -> Bool {
+    return lhs.era == rhs.era &&
+        lhs.year == rhs.year &&
+        lhs.month == rhs.month &&
+        lhs.day == rhs.day &&
+        lhs.hour == rhs.hour &&
+        lhs.min == rhs.min &&
+        lhs.sec == rhs.sec
+}
+
+func !=(lhs: DateTime, rhs: DateTime) -> Bool {
+    return !(lhs == rhs)
 }
 
 
@@ -32,7 +57,8 @@ class Time {
     static let minSec = -INT64_MAX
     static let secsInMin: Int64 = 60
     static let secsInHour: Int64 = secsInMin * 60
-    
+    static let secsIn365DayYear = 365 * secsInDay
+        
     static var yearTable: [[Int]] = {
             return [
                 [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -90,17 +116,52 @@ class Time {
      a tau factor of 1000.  So we add 500 sec to initial DateTime and get new DateTime.
   */
     static func addSecsToDateTime(dateTime: DateTime, sec: Int64) -> DateTime {
-        var year = dateTime.year
         var newDateTime = dateTime
-        
         let clockDiff = sec % secsInDay
         var dayDiff = Int(sec / secsInDay)
-            
-        // stub
-        return dateTime
+        let secDiff = Int(clockDiff % secsInMin)
+        let minDiff = Int(clockDiff % 3600 / 60)
+        let hourDiff = Int(clockDiff / 3600)
+        newDateTime.sec += secDiff
+        newDateTime.min += minDiff
+        newDateTime.hour += hourDiff
+        let minCarry = newDateTime.sec / 60
+        newDateTime.sec %= 60
+        newDateTime.min += minCarry
+        let hourCarry = newDateTime.min / 60
+        newDateTime.min %= 60
+        newDateTime.hour += hourCarry
+        let dayCarry = newDateTime.hour / 24
+        newDateTime.hour %= 24
+        dayDiff += dayCarry  // total days to add to starting date
         
+        while dayDiff > 0 {
+            newDateTime.day += 1
+            if newDateTime.day > yearTable[leapYear(year: newDateTime.year)][newDateTime.month] {
+                newDateTime.day = 1
+                newDateTime.month += 1
+                if newDateTime.month > 11 {
+                    newDateTime.month = 0
+                    newDateTime.year += 1
+                }
+            }
+            dayDiff -= 1
+        }
+//        while dayDiff >= yearSize(year: newDateTime.year) {
+//            dayDiff -= yearSize(year: newDateTime.year)
+//            newDateTime.year += 1
+//        }
+//        while dayNumber >= yearTable[leapYear(year: newDateTime.year)][newDateTime.month] {
+//            dayNumber -= yearTable[leapYear(year: newDateTime.year)][newDateTime.month]
+//            newDateTime.month += 1
+//            if newDateTime.month > 11 {
+//                newDateTime.month = 0
+//            }
+//        }
+//        newDateTime.day = dayNumber + 1
         
-        
+        return newDateTime
     }
+
 }
 
