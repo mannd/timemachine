@@ -20,7 +20,7 @@ struct DateTime {
     var day: Int = 0
     var hour: Int = 0
     var min: Int = 0
-    var sec = 0
+    var sec : Double = 0.0
     
     func printDate() {
         let date = (era == Era.CE ? "CE ": "BCE ") + "\(year) \(Time.monthName[month]) \(day) \(hour):\(min):\(sec)"
@@ -29,19 +29,22 @@ struct DateTime {
     func formatTime() -> String {
         let hourString = hour < 10 ? "0\(hour)" : "\(hour)"
         let minString = min < 10 ? "0\(min)" : "\(min)"
-        let secString = sec < 10 ? "0\(sec)" : "\(sec)"
+        let secString = sec < 10 ? "0\(Int(sec))" : "\(Int(sec))"
         return hourString + ":" + minString + ":" + secString
     }
 }
 
 func ==(lhs: DateTime, rhs: DateTime) -> Bool {
+    // tolerance for comparing secs (doubles)
+    let delta = 0.001
     return lhs.era == rhs.era &&
         lhs.year == rhs.year &&
         lhs.month == rhs.month &&
         lhs.day == rhs.day &&
         lhs.hour == rhs.hour &&
         lhs.min == rhs.min &&
-        lhs.sec == rhs.sec
+        lhs.sec <= rhs.sec + delta &&
+        lhs.sec >= rhs.sec - delta
 }
 
 func !=(lhs: DateTime, rhs: DateTime) -> Bool {
@@ -87,12 +90,12 @@ class Time {
     }
     
     // TODO: Handle BCE!
-    static func secsToDateTime(sec: Int64) -> DateTime {
+    static func secsToDateTime(sec: Double) -> DateTime {
         var year = epochYear
         var dateTime = DateTime()
-        let dayClock = sec % secsInDay
-        var dayNumber = Int(sec / secsInDay)
-        dateTime.sec = Int(dayClock % secsInMin)
+        let dayClock = Int64(sec) % secsInDay
+        var dayNumber = Int(Int64(sec) / secsInDay)
+        dateTime.sec = Double(dayClock % secsInMin)
         dateTime.min = Int((dayClock % 3600) / 60)
         dateTime.hour = Int(dayClock / 3600)
         while dayNumber >= yearSize(year: year) {
@@ -115,19 +118,21 @@ class Time {
      e.g. we have an initial DateTime (say the year 2,500,000).  0.5 sec user time elapses with
      a tau factor of 1000.  So we add 500 sec to initial DateTime and get new DateTime.
   */
-    static func addSecsToDateTime(dateTime: DateTime, sec: Int64) -> DateTime {
+    static func addSecsToDateTime(dateTime: DateTime, sec: Double) -> DateTime {
         var newDateTime = dateTime
-        let clockDiff = sec % secsInDay
-        var dayDiff = Int(sec / secsInDay)
-        let secDiff = Int(clockDiff % secsInMin)
+        var fractionalSec = sec - Double(Int(sec))
+        let clockDiff = Int64(sec) % secsInDay
+        var dayDiff = Int64(sec) / secsInDay
+        let secDiff = Double(clockDiff % secsInMin)
         let minDiff = Int(clockDiff % 3600 / 60)
         let hourDiff = Int(clockDiff / 3600)
-        newDateTime.sec += secDiff
+        newDateTime.sec += (secDiff + fractionalSec)
+        fractionalSec = newDateTime.sec - Double(Int(newDateTime.sec))
         newDateTime.min += minDiff
         newDateTime.hour += hourDiff
         let minCarry = newDateTime.sec / 60
-        newDateTime.sec %= 60
-        newDateTime.min += minCarry
+        newDateTime.sec = Double(Int64(newDateTime.sec) % 60) + fractionalSec
+        newDateTime.min += Int(minCarry)
         let hourCarry = newDateTime.min / 60
         newDateTime.min %= 60
         newDateTime.hour += hourCarry

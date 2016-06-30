@@ -110,7 +110,7 @@ class timemachineTests: XCTestCase {
     
     func testAddSecsToDateTime() {
         let time1 = Time.secsToDateTime(sec: 0) // epoch
-        let time2 = Time.addSecsToDateTime(dateTime: time1, sec: Time.secsIn365DayYear)
+        let time2 = Time.addSecsToDateTime(dateTime: time1, sec: Double(Time.secsIn365DayYear))
         let time2PlusYear = DateTime(era: Era.CE, year: 1971, month: 0, day: 1, hour: 0, min: 0, sec: 0)
         XCTAssert(time2 == time2PlusYear)
         time2.printDate()
@@ -121,19 +121,19 @@ class timemachineTests: XCTestCase {
         time4.printDate()
         time5.printDate()
         // add 1 month to Jan 1, 1970
-        let time6 = Time.addSecsToDateTime(dateTime: time1, sec: 31 * Time.secsInDay)
+        let time6 = Time.addSecsToDateTime(dateTime: time1, sec: Double(31 * Time.secsInDay))
         let time7 = DateTime(era: Era.CE, year: 1970, month: 1, day: 1, hour: 0, min: 0, sec: 0)
         XCTAssert(time6 == time7)
         time6.printDate()
         time7.printDate()
         // Feb leap year
         let time8 = DateTime(era: Era.CE, year: 1980, month: 1, day: 1, hour: 0, min: 0, sec: 0)
-        let time9 = Time.addSecsToDateTime(dateTime: time8, sec: 28 * Time.secsInDay)
+        let time9 = Time.addSecsToDateTime(dateTime: time8, sec: Double(28 * Time.secsInDay))
         let time10 = DateTime(era: Era.CE, year: 1980, month: 1, day: 29, hour: 0, min: 0, sec: 0)
         XCTAssert(time9 == time10)
         // Feb no leap year
         let time11 = DateTime(era: Era.CE, year: 1981, month: 1, day: 1, hour: 0, min: 0, sec: 0)
-        let time12 = Time.addSecsToDateTime(dateTime: time11, sec: 28 * Time.secsInDay)
+        let time12 = Time.addSecsToDateTime(dateTime: time11, sec: Double(28 * Time.secsInDay))
         let time13 = DateTime(era: Era.CE, year: 1981, month: 2, day: 1, hour: 0, min: 0, sec: 0)
         XCTAssert(time12 == time13)
         // Arbitrary long date-time jump
@@ -144,6 +144,21 @@ class timemachineTests: XCTestCase {
         time15.printDate()
         time16.printDate()
         XCTAssert(time15 == time16)
+        // test fractional secs
+        let time17 = DateTime(era: Era.CE, year: 1970, month: 0, day: 1, hour: 0, min: 0, sec: 2.4)
+        let time18 = Time.addSecsToDateTime(dateTime: time17, sec: 1.8)
+        let time19 = DateTime(era: Era.CE, year: 1970, month: 0, day: 1, hour: 0, min: 0, sec: 4.2)
+        time17.printDate()
+        time18.printDate()
+        time19.printDate()
+        XCTAssert(time18 == time19)
+        let time20 = Time.addSecsToDateTime(dateTime: time14, sec: 0.755)
+        let time21 = Time.addSecsToDateTime(dateTime: time20, sec: 165335743.901)
+        let time22 = Time.addSecsToDateTime(dateTime: time16, sec: 1.656)
+        XCTAssert(time21 == time22)
+        time20.printDate()
+        time21.printDate()
+        time22.printDate()
     }
     
     func testNSDateClass() {

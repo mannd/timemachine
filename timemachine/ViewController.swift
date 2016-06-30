@@ -28,7 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     var timer: Timer?
     var originDate: Date = Date()
-    var tmDateTime: DateTime = Time.secsToDateTime(sec: Int64(Date().timeIntervalSince1970))
+    var tmDateTime: DateTime = Time.secsToDateTime(sec: Date().timeIntervalSince1970)
     let originDateFormatter =  DateFormatter()
     let tmYearFormatter = DateFormatter()
     let tmMonthFormatter = DateFormatter()
@@ -39,6 +39,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     let controlTitle = "CONTROL"
     let updateInterval = 0.001
+    var counter: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,17 +75,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     private func updateTmTime() {
         // test assume tau = 10
-        tau = 10000
-        let updateTimer = updateInterval * tau
-        let secDiff = tau
-        if tau == 1 {
+        tau = 1000000000000
+        let secDiff = tau * updateInterval
+        if tau == -11 {
             tmYearLabel.text = tmYearFormatter.string(from: originDate)
             tmMonthLabel.text = tmMonthFormatter.string(from: originDate)
             tmDayLabel.text = tmDayFormatter.string(from: originDate)
             tmTimeLabel.text = tmTimeFormatter.string(from: originDate)
         }
-        else {
-            tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: Int64(secDiff))
+        else  {
+            tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: secDiff)
             tmYearLabel.text = "\(tmDateTime.year)"
             tmMonthLabel.text = "\(Time.monthName[tmDateTime.month])"
             tmDayLabel.text = "\(tmDateTime.day)"
