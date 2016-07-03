@@ -70,7 +70,7 @@ class Time {
     }()
     
     static var monthName: [String] = {
-        return ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+        return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     }()
 
     static func isLeapYear(year: Int64) -> Bool {

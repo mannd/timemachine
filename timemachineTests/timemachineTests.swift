@@ -68,18 +68,18 @@ class timemachineTests: XCTestCase {
     }
     
     func testMonthNames() {
-        XCTAssert(Time.monthName[0] == "JAN")
-        XCTAssert(Time.monthName[1] == "FEB")
-        XCTAssert(Time.monthName[2] == "MAR")
-        XCTAssert(Time.monthName[3] == "APR")
-        XCTAssert(Time.monthName[4] == "MAY")
-        XCTAssert(Time.monthName[5] == "JUN")
-        XCTAssert(Time.monthName[6] == "JUL")
-        XCTAssert(Time.monthName[7] == "AUG")
-        XCTAssert(Time.monthName[8] == "SEP")
-        XCTAssert(Time.monthName[9] == "OCT")
-        XCTAssert(Time.monthName[10] == "NOV")
-        XCTAssert(Time.monthName[11] == "DEC")
+        XCTAssert(Time.monthName[0] == "Jan")
+        XCTAssert(Time.monthName[1] == "Feb")
+        XCTAssert(Time.monthName[2] == "Mar")
+        XCTAssert(Time.monthName[3] == "Apr")
+        XCTAssert(Time.monthName[4] == "May")
+        XCTAssert(Time.monthName[5] == "Jun")
+        XCTAssert(Time.monthName[6] == "Jul")
+        XCTAssert(Time.monthName[7] == "Aug")
+        XCTAssert(Time.monthName[8] == "Sep")
+        XCTAssert(Time.monthName[9] == "Oct")
+        XCTAssert(Time.monthName[10] == "Nov")
+        XCTAssert(Time.monthName[11] == "Dec")
 
     }
     

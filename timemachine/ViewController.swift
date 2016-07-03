@@ -36,10 +36,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var tmTimeFormatter = DateFormatter()
     
     var tau: Double = 1.0
+    let maxTau: Double = 10_000_000_000_000.0
+
     
     let controlTitle = "CONTROL"
     let updateInterval = 0.001
     var counter: Int = 0
+    var initialDate = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +51,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         originDateFormatter.dateFormat = "yyyy MMM d HH:mm:ss"
         originDateFormatter.timeZone = TimeZone(name: "UTC")
         tmYearFormatter.dateFormat = "yyyy"
-        tmMonthFormatter.dateFormat = "MMMM"
+        tmMonthFormatter.dateFormat = "MMM"
         tmDayFormatter.dateFormat = "d"
         tmTimeFormatter.dateFormat = "HH:mm:ss"
         tmTimeFormatter.timeZone = TimeZone(name: "UTC")
@@ -74,22 +77,34 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func updateTmTime() {
+//        updateTmTimeWithNSDate()
+//        return
         // test assume tau = 10
-        tau = 1000000000000
         let secDiff = tau * updateInterval
-        if tau == -11 {
-            tmYearLabel.text = tmYearFormatter.string(from: originDate)
+        if tau == 1 {
+            tmYearLabel.text = "CE " + tmYearFormatter.string(from: originDate)
             tmMonthLabel.text = tmMonthFormatter.string(from: originDate)
             tmDayLabel.text = tmDayFormatter.string(from: originDate)
             tmTimeLabel.text = tmTimeFormatter.string(from: originDate)
         }
         else  {
             tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: secDiff)
-            tmYearLabel.text = "\(tmDateTime.year)"
+            tmYearLabel.text = "CE \(tmDateTime.year)"
             tmMonthLabel.text = "\(Time.monthName[tmDateTime.month])"
             tmDayLabel.text = "\(tmDateTime.day)"
             tmTimeLabel.text = tmDateTime.formatTime()
         }
+    }
+    
+    private func updateTmTimeWithNSDate() {
+        tau = 10_000_000_000_000
+        let secDiff = tau * updateInterval
+        initialDate = initialDate.addingTimeInterval(secDiff)
+        tmYearLabel.text = tmYearFormatter.string(from: initialDate)
+        tmMonthLabel.text = tmMonthFormatter.string(from: initialDate)
+        tmDayLabel.text = tmDayFormatter.string(from: initialDate)
+        tmTimeLabel.text = tmTimeFormatter.string(from: initialDate)
+        
     }
     
     // MARK: actions
@@ -146,12 +161,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func startButtonAction(_ sender: AnyObject) {
+        tau = 10_000_000_000_000
     }
     
     @IBAction func stopButtonAction(_ sender: AnyObject) {
+        tau = 1.0
     }
     
     @IBAction func resetButtonAction(_ sender: AnyObject) {
+        tau = 1.0
+        
     }
     
     @IBAction func settingsButtonAction(_ sender: AnyObject) {
