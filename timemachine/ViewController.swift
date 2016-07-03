@@ -25,6 +25,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var accelerationSwitch: UISwitch!
     @IBOutlet weak var controlLabel: UILabel!
     @IBOutlet weak var controlSlider: UISlider!
+    @IBOutlet weak var tauStepper: UIStepper!
 
     var timer: Timer?
     var originDate: Date = Date()
@@ -122,6 +123,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func changeTau(_ sender: AnyObject) {
+        tauTextField.text = "\(pow(10, tauStepper.value))"
+        
+    }
+
+    
     @IBAction func velocitySwitchAction(_ sender: AnyObject) {
         if velocitySwitch.isOn {
             tauSwitch.setOn(false, animated: true)
@@ -161,7 +168,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func startButtonAction(_ sender: AnyObject) {
-        tau = 10_000_000_000_000
+        tau = 1.0
+        if let tauString = tauTextField.text {
+            if let newTau = Double(tauString) {
+                tau = newTau
+            }
+        }
+
     }
     
     @IBAction func stopButtonAction(_ sender: AnyObject) {

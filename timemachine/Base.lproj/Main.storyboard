@@ -165,8 +165,8 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t5s-GY-sDt">
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="τ (sec/sec)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSb-Pb-ssn">
-                                        <frame key="frameInset" minX="20" minY="8" width="107" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="τ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSb-Pb-ssn">
+                                        <frame key="frameInset" minX="20" minY="8" width="53" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -187,13 +187,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="FLR-Lp-p1p">
-                                        <frame key="frameInset" minX="259" minY="3" width="51" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <connections>
-                                            <action selector="tauSwitchAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="tDW-VQ-hxz"/>
-                                        </connections>
-                                    </switch>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="SjT-QW-D5e">
                                         <frame key="frameInset" minX="259" minY="37" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -239,11 +232,18 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="7jl-rt-ZAp">
-                                        <frame key="frameInset" minX="123" minY="3" width="97" height="30"/>
+                                        <frame key="frameInset" minX="74" minY="3" width="146" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     </textField>
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="61X-Ex-tkX">
+                                        <frame key="frameInset" minX="228" width="94" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="changeTau:" destination="BYZ-38-t0r" eventType="valueChanged" id="fZ5-ee-coT"/>
+                                        </connections>
+                                    </stepper>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -322,7 +322,7 @@
                         <outlet property="controlSlider" destination="2Qw-2M-Gps" id="uet-yV-hp9"/>
                         <outlet property="destinationLabel" destination="Qzr-Oh-D35" id="iBo-LA-cTM"/>
                         <outlet property="originTimeLabel" destination="XlX-8l-OnZ" id="rIL-Ud-kOY"/>
-                        <outlet property="tauSwitch" destination="FLR-Lp-p1p" id="Nr1-ec-eOH"/>
+                        <outlet property="tauStepper" destination="61X-Ex-tkX" id="XFG-uk-hEM"/>
                         <outlet property="tauTextField" destination="7jl-rt-ZAp" id="NOF-nB-GX6"/>
                         <outlet property="tmDayLabel" destination="p2u-qA-Zyx" id="mdp-ll-NLQ"/>
                         <outlet property="tmMonthLabel" destination="kF4-ae-kWp" id="0mn-1z-7X7"/>
