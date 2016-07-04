@@ -8,7 +8,13 @@
 
 import UIKit
 
+enum StepperDirection {
+    case Increment
+    case Decrement
+}
+
 class ViewController: UIViewController, UITextFieldDelegate {
+    
 
     // MARK: outlets
     @IBOutlet weak var originTimeLabel: UILabel!
@@ -38,6 +44,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     var tau: Double = 1.0
     let maxTau: Double = 10_000_000_000_000.0
+    var previousTauStepperValue = 0.0
 
     
     let controlTitle = "CONTROL"
@@ -59,6 +66,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
         print ("\(originDateFormatter.string(from: Date.distantFuture))")
         print ("\(originDateFormatter.string(from: Date.distantPast))")
         tauTextField.delegate = self
+        tauTextField.text = "1.0"
+        tauStepper.wraps = true
+        tauStepper.minimumValue = -10
+        tauStepper.maximumValue = 10
+        tauStepper.value = 0
 
     }
 
@@ -124,8 +136,77 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func changeTau(_ sender: AnyObject) {
-        tauTextField.text = "\(pow(10, tauStepper.value))"
-        
+//        if let newTau = logChangeTau(value: Double(tauTextField.text!), power: tauStepper.value) {
+//            tauTextField.text = "\(newTau)"
+//            tau = newTau
+//        }
+        if stepperDirection(tauStepper, previousValue: &previousTauStepperValue) == .Increment {
+            print("increment")
+            tau *= 10
+
+        }
+        else {
+            print("decrement")
+            tau /= 10
+        }
+        tauTextField.text = "\(tau)"
+     }
+    
+    // TODO:
+    /*
+     We want tau to equal the previous tau * 10 to the power of the stepper value. 
+     We need to check for max and min tau and not exceed them.
+     Negative stepper values are just negative 
+     May need to reset stepper to 0 whenever tau is edited directly or if
+     tau is nil.
+ 
+ 
+     */
+//    func logChangeTau(value: Double?, power: Double) -> Double? {
+//        var newTau: Double? = nil
+//        if let tauValue = value {
+//            if power >= 0 {
+//                if power > previousStepperValue {
+//                    newTau = tauValue * 10
+//                }
+//                else {
+//                    newTau = tauValue / 10
+//                }
+//            }
+//            else  { // power < 0
+//                if power < previousStepperValue {
+//                    newTau = tauValue * 10
+//                }
+//                else {
+//                    newTau = tauValue / 10
+//                }
+//            }
+//        }
+//        previousStepperValue = power
+//        return newTau
+//    }
+    
+    // There is no direct way to just get boolean increment or decrement from a UIStepper, so this
+    // function does that for us.
+    func stepperDirection(_ stepper: UIStepper, previousValue: inout Double) -> StepperDirection {
+        let minValue = stepper.minimumValue
+        let maxValue = stepper.maximumValue
+        let value = stepper.value
+        var direction: StepperDirection
+        if previousValue == maxValue && value == minValue {
+            direction =  .Increment
+        }
+        else if previousValue == minValue && value == maxValue {
+            direction = .Decrement
+        }
+        else if value > previousValue {
+            direction = .Increment
+        }
+        else {
+            direction = .Decrement
+        }
+        previousValue = value
+        return direction
     }
 
     
@@ -192,17 +273,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func helpButtonAction(_ sender: AnyObject) {
     }
     
-//    - (IBAction)textFieldDoneEditing:(id)sender {
-//    [sender resignFirstResponder];
-//    }
-//    
-//    - (IBAction)backgroundTap:(id)sender {
-//    [self.numberOfDaysTextField resignFirstResponder];
-//    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let enableTauStepper = (tauTextField.text != nil && tauTextField.text?.characters.count > 0)
+        tauStepper.isUserInteractionEnabled = enableTauStepper
     }
     
     
