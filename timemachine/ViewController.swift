@@ -25,13 +25,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var velocityLabel: UILabel!
     @IBOutlet weak var accelerationLabel: UILabel!
     @IBOutlet weak var destinationLabel: UILabel!
-    @IBOutlet weak var tauSwitch: UISwitch!
     @IBOutlet weak var tauTextField: UITextField!
     @IBOutlet weak var velocitySwitch: UISwitch!
     @IBOutlet weak var accelerationSwitch: UISwitch!
     @IBOutlet weak var controlLabel: UILabel!
-    @IBOutlet weak var controlSlider: UISlider!
     @IBOutlet weak var tauStepper: UIStepper!
+    @IBOutlet weak var reverseTimeSwitch: UISwitch!
 
     var timer: Timer?
     var originDate: Date = Date()
@@ -44,6 +43,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     var tau: Double = 1.0
     let maxTau: Double = 10_000_000_000_000.0
+    let minTau: Double = 0.0001
     var previousTauStepperValue = 0.0
 
     
@@ -51,6 +51,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     let updateInterval = 0.001
     var counter: Int = 0
     var initialDate = Date()
+    var reverseTime = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +111,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     private func updateTmTimeWithNSDate() {
-        tau = 10_000_000_000_000
         let secDiff = tau * updateInterval
         initialDate = initialDate.addingTimeInterval(secDiff)
         tmYearLabel.text = tmYearFormatter.string(from: initialDate)
@@ -121,37 +121,56 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: actions
-    @IBAction func tauSwitchAction(_ sender: AnyObject) {
-        if tauSwitch.isOn {
-            velocitySwitch.setOn(false, animated: true)
-            accelerationSwitch.setOn(false, animated: true)
-            controlLabel.text = "TAU"
-            if let value = Float(tauTextField.text!) {
-                controlSlider.value = value
-            }
-        }
-        else {
-            controlLabel.text = controlTitle
-        }
+       
+    @IBAction func reverseTime(_ sender: AnyObject) {
+        reverseTime = reverseTimeSwitch.isOn
+        tau = resignTau(tau)
+        tauTextField.text = "\(tau)"
+
     }
     
     @IBAction func changeTau(_ sender: AnyObject) {
-//        if let newTau = logChangeTau(value: Double(tauTextField.text!), power: tauStepper.value) {
-//            tauTextField.text = "\(newTau)"
-//            tau = newTau
-//        }
+        tau = unsignTau(tau)
         if stepperDirection(tauStepper, previousValue: &previousTauStepperValue) == .Increment {
             print("increment")
-            tau *= 10
-
+            if tau == 0 {
+                tau = minTau
+            }
+            else if tau < maxTau {
+                tau *= 10
+            }
         }
         else {
             print("decrement")
-            tau /= 10
+            if tau <= minTau {
+                tau = 0
+            }
+            else {
+                tau /= 10
+            }
         }
+        tau = signTau(tau)
         tauTextField.text = "\(tau)"
-     }
+    }
     
+    func unsignTau(_ signedTau: Double) -> Double {
+        return abs(signedTau)
+    }
+    
+    // assumes passing directionless (positive) tau
+    func signTau(_ unsignedTau: Double) -> Double {
+        var newTau = unsignedTau
+        if reverseTime {
+            newTau = -newTau
+        }
+        return newTau
+    }
+    
+    // returns tau signed for time direction
+    func resignTau(_ value: Double) -> Double {
+        return signTau(unsignTau(value))
+    }
+
     // TODO:
     /*
      We want tau to equal the previous tau * 10 to the power of the stepper value. 
@@ -212,39 +231,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func velocitySwitchAction(_ sender: AnyObject) {
         if velocitySwitch.isOn {
-            tauSwitch.setOn(false, animated: true)
             accelerationSwitch.setOn(false, animated: true)
-            controlLabel.text = "VELOCITY"
-            if let value = Float(velocityLabel.text!) {
-                controlSlider.value = value
-            }        }
-        else {
-            controlLabel.text = controlTitle
         }
     }
     
     @IBAction func accelerationSwitchAction(_ sender: AnyObject) {
         if accelerationSwitch.isOn {
             velocitySwitch.setOn(false, animated: true)
-            tauSwitch.setOn(false, animated: true)
-            controlLabel.text = "ACCELERATION"
-            if let value = Float(accelerationLabel.text!) {
-                controlSlider.value = value
-            }        }
-        else {
-            controlLabel.text = controlTitle
-        }
-    }
-    
-    @IBAction func controlSliderAction(_ sender: AnyObject) {
-        if tauSwitch.isOn {
-            tauTextField.text = "\(controlSlider.value)"
-        }
-        else if velocitySwitch.isOn {
-            velocityLabel.text = "\(controlSlider.value)"
-        }
-        else if accelerationSwitch.isOn {
-            accelerationLabel.text = "\(controlSlider.value)"
         }
     }
     
@@ -255,7 +248,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 tau = newTau
             }
         }
-
     }
     
     @IBAction func stopButtonAction(_ sender: AnyObject) {

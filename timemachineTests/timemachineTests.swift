@@ -174,11 +174,5 @@ class timemachineTests: XCTestCase {
         print("Formatted today date = \(dateFormatter.string(from: date))")
     }
     
-    func testTauChange() {
-        let viewController = ViewController()
-        XCTAssert(viewController.logChangeTau(value: nil, power: 100) == nil)
-        XCTAssert(viewController.logChangeTau(value: 9.0, power: 2.0) == 81.0)
-        XCTAssert(viewController.logChangeTau(value: 10.0, power: 2.0) == 100)
-    }
     
 }

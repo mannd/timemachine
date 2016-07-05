@@ -20,7 +20,7 @@ struct DateTime {
     var day: Int = 0
     var hour: Int = 0
     var min: Int = 0
-    var sec : Double = 0.0
+    var sec : TimeInterval = 0.0
     
     func printDate() {
         let date = (era == Era.CE ? "CE ": "BCE ") + "\(year) \(Time.monthName[month]) \(day) \(hour):\(min):\(sec)"
@@ -90,7 +90,7 @@ class Time {
     }
     
     // TODO: Handle BCE!
-    static func secsToDateTime(sec: Double) -> DateTime {
+    static func secsToDateTime(sec: TimeInterval) -> DateTime {
         var year = epochYear
         var dateTime = DateTime()
         let dayClock = Int64(sec) % secsInDay
@@ -118,9 +118,9 @@ class Time {
      e.g. we have an initial DateTime (say the year 2,500,000).  0.5 sec user time elapses with
      a tau factor of 1000.  So we add 500 sec to initial DateTime and get new DateTime.
   */
-    static func addSecsToDateTime(dateTime: DateTime, sec: Double) -> DateTime {
+    static func addSecsToDateTime(dateTime: DateTime, sec: TimeInterval) -> DateTime {
         var newDateTime = dateTime
-        var fractionalSec = sec - Double(Int(sec))
+        var fractionalSec = sec - TimeInterval(Int(sec))
         let clockDiff = Int64(sec) % secsInDay
         var dayDiff = Int64(sec) / secsInDay
         let secDiff = Double(clockDiff % secsInMin)
@@ -131,7 +131,7 @@ class Time {
         newDateTime.min += minDiff
         newDateTime.hour += hourDiff
         let minCarry = newDateTime.sec / 60
-        newDateTime.sec = Double(Int64(newDateTime.sec) % 60) + fractionalSec
+        newDateTime.sec = TimeInterval(Int64(newDateTime.sec) % 60) + fractionalSec
         newDateTime.min += Int(minCarry)
         let hourCarry = newDateTime.min / 60
         newDateTime.min %= 60
