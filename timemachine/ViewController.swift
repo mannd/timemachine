@@ -22,15 +22,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tmMonthLabel: UILabel!
     @IBOutlet weak var tmDayLabel: UILabel!
     @IBOutlet weak var tmTimeLabel: UILabel!
-    @IBOutlet weak var velocityLabel: UILabel!
-    @IBOutlet weak var accelerationLabel: UILabel!
     @IBOutlet weak var destinationLabel: UILabel!
     @IBOutlet weak var tauTextField: UITextField!
-    @IBOutlet weak var velocitySwitch: UISwitch!
-    @IBOutlet weak var accelerationSwitch: UISwitch!
     @IBOutlet weak var controlLabel: UILabel!
     @IBOutlet weak var tauStepper: UIStepper!
     @IBOutlet weak var reverseTimeSwitch: UISwitch!
+    @IBOutlet weak var velocityStepper: UIStepper!
+    @IBOutlet weak var accelerationStepper: UIStepper!
+    @IBOutlet weak var velocityTextField: UITextField!
+    @IBOutlet weak var accelerationTextField: UITextField!
 
     var timer: Timer?
     var originDate: Date = Date()
@@ -72,6 +72,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         tauStepper.minimumValue = -10
         tauStepper.maximumValue = 10
         tauStepper.value = 0
+        velocityTextField.text = "0"
+        accelerationTextField.text = "0"
 
     }
 
@@ -121,13 +123,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: actions
-       
+    
     @IBAction func reverseTime(_ sender: AnyObject) {
         reverseTime = reverseTimeSwitch.isOn
         tau = resignTau(tau)
         tauTextField.text = "\(tau)"
-
     }
+    
+    @IBAction func changeVelocity(_ sender: AnyObject) {
+    }
+    
+    @IBAction func changeAcceleration(_ sender: AnyObject) {
+    }
+    
     
     @IBAction func changeTau(_ sender: AnyObject) {
         tau = unsignTau(tau)
@@ -228,19 +236,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return direction
     }
 
-    
-    @IBAction func velocitySwitchAction(_ sender: AnyObject) {
-        if velocitySwitch.isOn {
-            accelerationSwitch.setOn(false, animated: true)
-        }
-    }
-    
-    @IBAction func accelerationSwitchAction(_ sender: AnyObject) {
-        if accelerationSwitch.isOn {
-            velocitySwitch.setOn(false, animated: true)
-        }
-    }
-    
     @IBAction func startButtonAction(_ sender: AnyObject) {
         tau = 1.0
         if let tauString = tauTextField.text {
