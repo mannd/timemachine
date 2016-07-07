@@ -45,6 +45,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     let maxTau: Double = 10_000_000_000_000.0
     let minTau: Double = 0.0001
     var previousTauStepperValue = 0.0
+    var velocity: Double = 0.0
+    let maxVelocity = 1.0
+    var acceleration: Double = 0.0
+    let maxAcceleration = 100.0 // 100 g
+    
 
     
     let controlTitle = "CONTROL"
@@ -74,6 +79,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
         tauStepper.value = 0
         velocityTextField.text = "0"
         accelerationTextField.text = "0"
+        velocityStepper.wraps = false
+        velocityStepper.minimumValue = 0.0
+        velocityStepper.maximumValue = maxVelocity
+        velocityStepper.stepValue = 0.01
+        accelerationStepper.wraps = false
+        accelerationStepper.minimumValue = 0.0
+        accelerationStepper.maximumValue = maxAcceleration
+        accelerationStepper.stepValue = 0.1
+        
 
     }
 
@@ -131,9 +145,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func changeVelocity(_ sender: AnyObject) {
+        velocity = velocityStepper.value
+        velocityTextField.text = String(format: "%.2g", velocity)
     }
     
     @IBAction func changeAcceleration(_ sender: AnyObject) {
+        acceleration = accelerationStepper.value
+        // TODO: bug. (? in Swift)  stepper actually throws out this value:
+        // accelerationstepper.value = 2.77555756156289e-17
+        // between 0.1 and 0.0
+        print("accelerationstepper.value = \(accelerationStepper.value)")
+        accelerationTextField.text = String(format: "%.1g", acceleration)
     }
     
     

@@ -200,7 +200,7 @@
                                             <action selector="changeTau:" destination="BYZ-38-t0r" eventType="valueChanged" id="fZ5-ee-coT"/>
                                         </connections>
                                     </stepper>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="BSB-es-9jZ">
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="1" stepValue="0.01" translatesAutoresizingMaskIntoConstraints="NO" id="BSB-es-9jZ">
                                         <frame key="frameInset" minX="228" minY="39" width="94" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
@@ -214,7 +214,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="n9a-Pj-cHB">
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" stepValue="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="n9a-Pj-cHB">
                                         <frame key="frameInset" minX="228" minY="75" width="94" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
@@ -302,9 +302,9 @@
                                 <exclude reference="tYG-FY-Inc"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="ONR-QH-4LV"/>
                                 <exclude reference="R0H-uZ-7D1"/>
                                 <exclude reference="GBV-Ry-2HR"/>
+                                <exclude reference="ONR-QH-4LV"/>
                                 <exclude reference="bbu-aB-Zpf"/>
                                 <exclude reference="MKa-GW-IYH"/>
                                 <exclude reference="tVw-kN-2KK"/>
