@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     var timer: Timer?
     var originDate: Date = Date()
-    var tmDateTime: DateTime = Time.secsToDateTime(sec: Date().timeIntervalSince1970)
+    var tmDateTime = Time.secsToDateTime(sec: Date().timeIntervalSince1970)
     let originDateFormatter =  DateFormatter()
     let tmYearFormatter = DateFormatter()
     let tmMonthFormatter = DateFormatter()
@@ -120,7 +120,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         else  {
             tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: secDiff)
             tmYearLabel.text = "CE \(tmDateTime.year)"
-            tmMonthLabel.text = "\(Time.monthName[tmDateTime.month])"
+            tmMonthLabel.text = "\(Time.monthName[(tmDateTime.month)])"
             tmDayLabel.text = "\(tmDateTime.day)"
             tmTimeLabel.text = tmDateTime.formatTime()
         }

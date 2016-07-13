@@ -95,6 +95,7 @@ class timemachineTests: XCTestCase {
         XCTAssert(dateTime.year == 1971)
         XCTAssert(dateTime.month == 0)
         XCTAssert(dateTime.day == 1)
+        dateTime.printDate()
         // add a day
         let dateTime2 = Time.secsToDateTime(sec: 365 * 3600 * 24 + (3600 * 24))
         XCTAssert(dateTime2.day == 2)
@@ -159,6 +160,85 @@ class timemachineTests: XCTestCase {
         time20.printDate()
         time21.printDate()
         time22.printDate()
+    }
+    
+    func testPositiveSecsToDateTime() {
+        let yearAfterEpoch = Time.secsToDateTime(sec: 365 * 24 * 3600)
+        XCTAssert(yearAfterEpoch.year == 1971)
+        XCTAssert(yearAfterEpoch.month == 0)
+        XCTAssert(yearAfterEpoch.day == 1)
+        XCTAssert(yearAfterEpoch.hour == 0)
+        XCTAssert(yearAfterEpoch.min == 0)
+        XCTAssert(yearAfterEpoch.sec == 0)
+        // Feb 19 1972 13:29:11
+        let arbitrarySecs = TimeInterval(2 * (365 * 24 * 3600) + (50 * 24 * 3600) +
+            (13 * 3600) + (29 * 60) + 11)
+        let arbitraryIntervalAfterEpoch = Time.secsToDateTime(sec: arbitrarySecs)
+        arbitraryIntervalAfterEpoch.printDate()
+        XCTAssert(arbitraryIntervalAfterEpoch.year == 1972)
+        XCTAssert(arbitraryIntervalAfterEpoch.month == 1)
+        XCTAssert(arbitraryIntervalAfterEpoch.day == 20)
+        XCTAssert(arbitraryIntervalAfterEpoch.hour == 13)
+        XCTAssert(arbitraryIntervalAfterEpoch.min == 29)
+        XCTAssert(arbitraryIntervalAfterEpoch.sec == 11)
+        let anotherArbitrarySecs = TimeInterval(8 * (365 * 24 * 3600) + 200 * (24 * 3600) + 122)
+        // Jul 18 1978 0:02:02 -- period includes leap years
+        let anotherArbitraryIntervalAfterEpoch = Time.secsToDateTime(sec: anotherArbitrarySecs)
+        anotherArbitraryIntervalAfterEpoch.printDate()
+        XCTAssert(anotherArbitraryIntervalAfterEpoch.year == 1978)
+        XCTAssert(anotherArbitraryIntervalAfterEpoch.month == 6)
+        XCTAssert(anotherArbitraryIntervalAfterEpoch.day == 18)
+        XCTAssert(anotherArbitraryIntervalAfterEpoch.hour == 0)
+        XCTAssert(anotherArbitraryIntervalAfterEpoch.min == 2)
+        XCTAssert(anotherArbitraryIntervalAfterEpoch.sec == 2)
+
+    }
+    
+    func testNegativeSecsToDateTime() {
+        let timeEpoch = Time.secsToDateTime(sec: 0)
+        print("Epoch")
+        timeEpoch.printDate()
+        XCTAssert(timeEpoch.year == 1970)
+        XCTAssert(timeEpoch.month == 0)
+        XCTAssert(timeEpoch.day == 1)
+        XCTAssert(timeEpoch.hour == 0)
+        XCTAssert(timeEpoch.min == 0)
+        XCTAssert(timeEpoch.sec == 0)
+        let yearBefore = Time.secsToDateTime(sec: -365 * 24 * 3600)
+        XCTAssert(yearBefore.year == 1969)
+        yearBefore.printDate()
+        let dayBefore = Time.secsToDateTime(sec: -24 * 3600)
+        XCTAssert(dayBefore.day == 31)
+        XCTAssert(dayBefore.year == 1969)
+        dayBefore.printDate()
+        let secBefore = Time.secsToDateTime(sec: -1)
+        secBefore.printDate()
+        XCTAssert(secBefore.sec == 59)
+        XCTAssert(secBefore.min == 59)
+        XCTAssert(secBefore.hour == 23)
+    }
+    
+    
+   
+    func testSubtractTime() {
+        let time1 = Time.secsToDateTime(sec: 0) // epoch
+        // subtract 1 sec
+        let time0 = Time.secsToDateTime(sec: -1)
+        let timetest0 = Time.addSecsToDateTime(dateTime: time1, sec: -1.0)
+        XCTAssert(time0 == timetest0)
+        time1.printDate()
+        time0.printDate()
+        timetest0.printDate()
+        // subtract 90 sec
+        let time01 = Time.secsToDateTime(sec: -90)
+        let timetest01 = Time.addSecsToDateTime(dateTime: time1, sec: -90)
+        XCTAssert(time01 == timetest01)
+        time01.printDate()
+        timetest01.printDate()
+        let time2 = Time.addSecsToDateTime(dateTime: time1, sec: TimeInterval(-Time.secsIn365DayYear))
+        let time2MinusYear = DateTime(era: Era.CE, year: 1969, month: 0, day: 1, hour: 0, min: 0, sec: 0)
+        XCTAssert(time2 == time2MinusYear)
+        time2.printDate()
     }
     
     func testNSDateClass() {

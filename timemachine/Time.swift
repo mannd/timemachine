@@ -91,6 +91,20 @@ class Time {
     
     // TODO: Handle BCE!
     static func secsToDateTime(sec: TimeInterval) -> DateTime {
+        if sec == 0 {
+            return DateTime()
+        }
+        if sec > 0 {
+            return positiveSecsToDateTime(sec: sec)
+        }
+        else {
+            return negativeSecsToDateTime(sec: sec)
+        }
+        
+    }
+    
+    static func positiveSecsToDateTime(sec: TimeInterval) -> DateTime {
+        assert(sec > 0)
         var year = epochYear
         var dateTime = DateTime()
         let dayClock = Int64(sec) % secsInDay
@@ -98,6 +112,7 @@ class Time {
         dateTime.sec = Double(dayClock % secsInMin)
         dateTime.min = Int((dayClock % 3600) / 60)
         dateTime.hour = Int(dayClock / 3600)
+        //        if sign == 1 {
         while dayNumber >= yearSize(year: year) {
             dayNumber -= yearSize(year: year)
             year += 1
@@ -109,8 +124,75 @@ class Time {
             dateTime.month += 1
         }
         dateTime.day = dayNumber + 1
-        
         return dateTime
+        
+    }
+        
+    static func negativeSecsToDateTime(sec: TimeInterval) -> DateTime {
+        assert(sec < 0)
+        return DateTime()
+//            var year = epochYear
+//            var dateTime = DateTime()
+//            let sign = (sec < 0 ? -1 : 1)
+//            let dayClock = Int64(sec) % secsInDay
+//            var dayNumber = Int(Int64(sec) / secsInDay)
+//            dateTime.sec = Double(dayClock % secsInMin)
+//            dateTime.min = Int((dayClock % 3600) / 60)
+//            dateTime.hour = Int(dayClock / 3600)
+//            //        if sign == 1 {
+//            while dayNumber >= yearSize(year: year) {
+//                dayNumber -= yearSize(year: year)
+//                year += 1
+//            }
+//            //        }
+//            //        else {
+//            //            while abs(dayNumber) <= yearSize(year: year) {
+//            //                dayNumber += yearSize(year: year)
+//            //                year -= 1
+//            //            }
+//            //
+//            //        }
+//            dateTime.year = year
+//            dateTime.month = 0
+//            //        if sign == 1 {
+//            while dayNumber >= yearTable[leapYear(year: year)][dateTime.month] {
+//                dayNumber -= yearTable[leapYear(year: year)][dateTime.month]
+//                dateTime.month += 1
+//            }
+//            //        }
+//            //        else {
+//            //            while abs(dayNumber) <= yearTable[leapYear(year: year)][dateTime.month] {
+//            //                dayNumber += yearTable[leapYear(year: year)][dateTime.month]
+//            //                dateTime.month -= 1
+//            //            }
+//            //        }
+//            dateTime.day = dayNumber + 1
+//            // adjust for negative times
+//            //        if dateTime.sec < 0 {
+//            //            dateTime.sec += 60
+//            //            dateTime.min -= 1
+//            //        }
+//            //        if dateTime.min < 0 {
+//            //            dateTime.min += 60
+//            //            dateTime.hour -= 1
+//            //        }
+//            //        if dateTime.hour < 0 {
+//            //            dateTime.hour += 24
+//            //            dateTime.day -= 1
+//            //        }
+//            //        if dateTime.day < 1 {
+//            //            dateTime.day += 31  // adjust this when we know the month
+//            //            dateTime.month -= 1
+//            //        }
+//            //        if dateTime.month < 0 {
+//            //            dateTime.month += 11
+//            //            dateTime.year -= 1
+//            //        }
+//            //        // normalize last day of month
+//            //        if dateTime.day > yearTable[leapYear(year: dateTime.year)][dateTime.month] {
+//            //            dateTime.day = yearTable[leapYear(year: dateTime.year)][dateTime.month]
+//            //        }
+//            return dateTime
     }
     
     // it is easy to calculate big times if we are incrementing by small steps
@@ -128,9 +210,10 @@ class Time {
         let hourDiff = Int(clockDiff / 3600)
         newDateTime.sec += (secDiff + fractionalSec)
         fractionalSec = newDateTime.sec - Double(Int(newDateTime.sec))
-        newDateTime.min += minDiff
+        
+
         newDateTime.hour += hourDiff
-        let minCarry = newDateTime.sec / 60
+        let minCarry = Int(newDateTime.sec) / 60
         newDateTime.sec = TimeInterval(Int64(newDateTime.sec) % 60) + fractionalSec
         newDateTime.min += Int(minCarry)
         let hourCarry = newDateTime.min / 60
@@ -139,31 +222,23 @@ class Time {
         let dayCarry = newDateTime.hour / 24
         newDateTime.hour %= 24
         dayDiff += dayCarry  // total days to add to starting date
-        
-        while dayDiff > 0 {
-            newDateTime.day += 1
-            if newDateTime.day > yearTable[leapYear(year: newDateTime.year)][newDateTime.month] {
-                newDateTime.day = 1
-                newDateTime.month += 1
-                if newDateTime.month > 11 {
-                    newDateTime.month = 0
-                    newDateTime.year += 1
+        if dayDiff > 0 {
+            while dayDiff > 0 {
+                newDateTime.day += 1
+                if newDateTime.day > yearTable[leapYear(year: newDateTime.year)][newDateTime.month] {
+                    newDateTime.day = 1
+                    newDateTime.month += 1
+                    if newDateTime.month > 11 {
+                        newDateTime.month = 0
+                        newDateTime.year += 1
+                    }
                 }
+                dayDiff -= 1
             }
-            dayDiff -= 1
         }
-//        while dayDiff >= yearSize(year: newDateTime.year) {
-//            dayDiff -= yearSize(year: newDateTime.year)
-//            newDateTime.year += 1
-//        }
-//        while dayNumber >= yearTable[leapYear(year: newDateTime.year)][newDateTime.month] {
-//            dayNumber -= yearTable[leapYear(year: newDateTime.year)][newDateTime.month]
-//            newDateTime.month += 1
-//            if newDateTime.month > 11 {
-//                newDateTime.month = 0
-//            }
-//        }
-//        newDateTime.day = dayNumber + 1
+        else {
+            // negative time being added
+        }
         
         return newDateTime
     }
