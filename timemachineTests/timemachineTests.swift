@@ -277,5 +277,18 @@ class timemachineTests: XCTestCase {
         print("Formatted today date = \(dateFormatter.string(from: date))")
     }
     
+    func testMoment() {
+        let moment = Moment()
+        print(moment.dateComponents.day)
+        moment.momentDate = Date()
+        print(moment.dateComponents.year)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy MMM dd HH:mm:ss.ZZZ"
+        print("today is \(dateFormatter.string(from: moment.momentDate))")
+        print(moment.dateComponents.hour)
+        moment.setTimeZone("UTC")
+        print("UTC hour = \(moment.dateComponents.hour)")
+    }
+    
     
 }
