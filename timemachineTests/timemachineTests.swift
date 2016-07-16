@@ -113,17 +113,23 @@ class timemachineTests: XCTestCase {
         let time1 = Time.secsToDateTime(sec: 0) // epoch
         let time2 = Time.addSecsToDateTime(dateTime: time1, sec: Double(Time.secsIn365DayYear))
         let time2PlusYear = DateTime(era: Era.CE, year: 1971, month: 0, day: 1, hour: 0, min: 0, sec: 0)
+        print("Test add 1 year to epoch")
         XCTAssert(time2 == time2PlusYear)
+        time1.printDate()
         time2.printDate()
+        time2PlusYear.printDate()
         let time3 = Time.secsToDateTime(sec: 35)
         let time4 = Time.addSecsToDateTime(dateTime: time3, sec: 35)
         let time5 = DateTime(era: Era.CE, year: 1970, month: 0, day: 1, hour: 0, min: 1, sec: 10)
+        print("Test add 35 sec to 0:0:35")
         XCTAssert(time4 == time5)
+        time3.printDate()
         time4.printDate()
         time5.printDate()
         // add 1 month to Jan 1, 1970
         let time6 = Time.addSecsToDateTime(dateTime: time1, sec: Double(31 * Time.secsInDay))
         let time7 = DateTime(era: Era.CE, year: 1970, month: 1, day: 1, hour: 0, min: 0, sec: 0)
+        print("Test add 1 month to epoch")
         XCTAssert(time6 == time7)
         time6.printDate()
         time7.printDate()
@@ -131,16 +137,25 @@ class timemachineTests: XCTestCase {
         let time8 = DateTime(era: Era.CE, year: 1980, month: 1, day: 1, hour: 0, min: 0, sec: 0)
         let time9 = Time.addSecsToDateTime(dateTime: time8, sec: Double(28 * Time.secsInDay))
         let time10 = DateTime(era: Era.CE, year: 1980, month: 1, day: 29, hour: 0, min: 0, sec: 0)
+        print("Test add 28 days to Feb 1 1980 (leap year)")
+        time8.printDate()
+        time9.printDate()
+        time10.printDate()
         XCTAssert(time9 == time10)
         // Feb no leap year
         let time11 = DateTime(era: Era.CE, year: 1981, month: 1, day: 1, hour: 0, min: 0, sec: 0)
         let time12 = Time.addSecsToDateTime(dateTime: time11, sec: Double(28 * Time.secsInDay))
         let time13 = DateTime(era: Era.CE, year: 1981, month: 2, day: 1, hour: 0, min: 0, sec: 0)
+        print("Test add 28 days to Feb 1 1981 (not a leap year)")
         XCTAssert(time12 == time13)
+        time11.printDate()
+        time12.printDate()
+        time13.printDate()
         // Arbitrary long date-time jump
         let time14 = DateTime(era: Era.CE, year: 2017, month: 11, day: 13, hour: 13, min: 23, sec: 45)
         let time15 = Time.addSecsToDateTime(dateTime: time14, sec: 165335743)
         let time16 = DateTime(era: Era.CE, year: 2023, month: 2, day: 11, hour: 3, min: 59, sec: 28)
+        print("Test add long whole number of secs to Dec 13 2017 13:23:45")
         time14.printDate()
         time15.printDate()
         time16.printDate()
@@ -149,6 +164,7 @@ class timemachineTests: XCTestCase {
         let time17 = DateTime(era: Era.CE, year: 1970, month: 0, day: 1, hour: 0, min: 0, sec: 2.4)
         let time18 = Time.addSecsToDateTime(dateTime: time17, sec: 1.8)
         let time19 = DateTime(era: Era.CE, year: 1970, month: 0, day: 1, hour: 0, min: 0, sec: 4.2)
+        // test add fractional secs
         time17.printDate()
         time18.printDate()
         time19.printDate()
@@ -156,6 +172,7 @@ class timemachineTests: XCTestCase {
         let time20 = Time.addSecsToDateTime(dateTime: time14, sec: 0.755)
         let time21 = Time.addSecsToDateTime(dateTime: time20, sec: 165335743.901)
         let time22 = Time.addSecsToDateTime(dateTime: time16, sec: 1.656)
+        print("Test add long fractional secs to Dec 13 2017 13:23:45")
         XCTAssert(time21 == time22)
         time20.printDate()
         time21.printDate()
@@ -191,7 +208,13 @@ class timemachineTests: XCTestCase {
         XCTAssert(anotherArbitraryIntervalAfterEpoch.hour == 0)
         XCTAssert(anotherArbitraryIntervalAfterEpoch.min == 2)
         XCTAssert(anotherArbitraryIntervalAfterEpoch.sec == 2)
-
+    }
+    
+    func testFractionalSecs() {
+        let dateTime = Time.secsToDateTime(sec: 0.88)
+        XCTAssert(dateTime.sec == 0.88)
+        // make sure rounding works
+        XCTAssert(round(dateTime.sec) == 1)
     }
     
     func testNegativeSecsToDateTime() {

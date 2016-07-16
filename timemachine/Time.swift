@@ -17,7 +17,7 @@ struct DateTime {
     var era: Era = Era.CE   // CE or BCE
     var year: Int64 = Time.epochYear
     var month: Int = 0
-    var day: Int = 0
+    var day: Int = 1
     var hour: Int = 0
     var min: Int = 0
     var sec : TimeInterval = 0.0
@@ -107,9 +107,10 @@ class Time {
         assert(sec > 0)
         var year = epochYear
         var dateTime = DateTime()
+        let fractionalSec = sec - TimeInterval(Int(sec))
         let dayClock = Int64(sec) % secsInDay
         var dayNumber = Int(Int64(sec) / secsInDay)
-        dateTime.sec = Double(dayClock % secsInMin)
+        dateTime.sec = Double(dayClock % secsInMin) + fractionalSec
         dateTime.min = Int((dayClock % 3600) / 60)
         dateTime.hour = Int(dayClock / 3600)
         //        if sign == 1 {
@@ -210,8 +211,7 @@ class Time {
         let hourDiff = Int(clockDiff / 3600)
         newDateTime.sec += (secDiff + fractionalSec)
         fractionalSec = newDateTime.sec - Double(Int(newDateTime.sec))
-        
-
+        newDateTime.min += minDiff
         newDateTime.hour += hourDiff
         let minCarry = Int(newDateTime.sec) / 60
         newDateTime.sec = TimeInterval(Int64(newDateTime.sec) % 60) + fractionalSec
@@ -222,24 +222,43 @@ class Time {
         let dayCarry = newDateTime.hour / 24
         newDateTime.hour %= 24
         dayDiff += dayCarry  // total days to add to starting date
-        if dayDiff > 0 {
-            while dayDiff > 0 {
-                newDateTime.day += 1
-                if newDateTime.day > yearTable[leapYear(year: newDateTime.year)][newDateTime.month] {
-                    newDateTime.day = 1
-                    newDateTime.month += 1
-                    if newDateTime.month > 11 {
-                        newDateTime.month = 0
-                        newDateTime.year += 1
-                    }
-                }
-                dayDiff -= 1
-            }
-        }
-        else {
-            // negative time being added
-        }
         
+        // this is wrong, and it is key
+        var dayNumber = Int(Int64(dateTime.sec) / secsInDay) + dayDiff
+
+        
+        
+        // TODO: this is the problematic code
+//        while dayDiff > 0 {
+//            if newDateTime.day >= yearTable[leapYear(year: newDateTime.year)][newDateTime.month] {
+//                newDateTime.day = 0         // ????
+//                newDateTime.month += 1
+//                if newDateTime.month > 11 {
+//                    newDateTime.month = 0
+//                    newDateTime.year += 1
+//                }
+//            }
+//            newDateTime.day += 1
+//            dayDiff -= 1
+//        }
+
+        var year = newDateTime.year
+        while dayNumber >= Int64(yearSize(year: year)) {
+            dayNumber -= Int64(yearSize(year: year))
+            year += 1
+        }
+        newDateTime.year = year
+        newDateTime.month = 0
+        while dayNumber >= Int64(yearTable[leapYear(year: year)][newDateTime.month]) {
+            dayNumber -= Int64(yearTable[leapYear(year: year)][newDateTime.month])
+            newDateTime.month += 1
+        }
+//        newDateTime.month += dateTime.month
+//        if newDateTime.month > 11 {
+//            newDateTime.month = 0
+//            newDateTime.year += 1
+//        }
+        newDateTime.day = Int(dayNumber) + 1
         return newDateTime
     }
 

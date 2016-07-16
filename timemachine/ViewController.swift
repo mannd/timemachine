@@ -46,9 +46,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     let minTau: Double = 0.0001
     var previousTauStepperValue = 0.0
     var velocity: Double = 0.0
-    let maxVelocity = 1.0
+    let maxVelocity = 1.0  // = c
+    let velocityStepSize = 0.01
     var acceleration: Double = 0.0
     let maxAcceleration = 100.0 // 100 g
+    let accelerationStepSize = 0.1
     
 
     
@@ -69,8 +71,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         tmDayFormatter.dateFormat = "d"
         tmTimeFormatter.dateFormat = "HH:mm:ss"
         tmTimeFormatter.timeZone = TimeZone(name: "UTC")
+        // TODO: remove
         print ("\(originDateFormatter.string(from: Date.distantFuture))")
         print ("\(originDateFormatter.string(from: Date.distantPast))")
+        // Set up indicators
         tauTextField.delegate = self
         tauTextField.text = "1.0"
         tauStepper.wraps = true
@@ -80,15 +84,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         velocityTextField.text = "0"
         accelerationTextField.text = "0"
         velocityStepper.wraps = false
-        velocityStepper.minimumValue = 0.0
-        velocityStepper.maximumValue = maxVelocity
-        velocityStepper.stepValue = 0.01
+        velocityStepper.minimumValue = 0
+        velocityStepper.maximumValue = maxVelocity / velocityStepSize
+        velocityStepper.stepValue = 1
         accelerationStepper.wraps = false
-        accelerationStepper.minimumValue = 0.0
-        accelerationStepper.maximumValue = maxAcceleration
-        accelerationStepper.stepValue = 0.1
-        
-
+        accelerationStepper.minimumValue = 0
+        accelerationStepper.maximumValue = maxAcceleration / accelerationStepSize
+        accelerationStepper.stepValue = 1
     }
 
     override func didReceiveMemoryWarning() {
@@ -145,17 +147,21 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func changeVelocity(_ sender: AnyObject) {
-        velocity = velocityStepper.value
-        velocityTextField.text = String(format: "%.2g", velocity)
+        velocity = velocityStepper.value * velocityStepSize
+        updateVelocityIndicator(velocity)
+    }
+    
+    func updateVelocityIndicator(_ value: Double) {
+        velocityTextField.text = String(format: "%.2g", value)
     }
     
     @IBAction func changeAcceleration(_ sender: AnyObject) {
-        acceleration = accelerationStepper.value
-        // TODO: bug. (? in Swift)  stepper actually throws out this value:
-        // accelerationstepper.value = 2.77555756156289e-17
-        // between 0.1 and 0.0
-        print("accelerationstepper.value = \(accelerationStepper.value)")
-        accelerationTextField.text = String(format: "%.1g", acceleration)
+        acceleration = accelerationStepper.value * accelerationStepSize
+        updateAccelerationIndicator(acceleration)
+    }
+    
+    func updateAccelerationIndicator(_ value: Double) {
+        accelerationTextField.text = String(format: "%.3g", value)
     }
     
     
@@ -180,7 +186,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
         tau = signTau(tau)
-        tauTextField.text = "\(tau)"
+        updateTauIndicator(tau)
     }
     
     func unsignTau(_ signedTau: Double) -> Double {
@@ -199,6 +205,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // returns tau signed for time direction
     func resignTau(_ value: Double) -> Double {
         return signTau(unsignTau(value))
+    }
+    
+    func updateTauIndicator(_ value: Double) {
+        tauTextField.text = "\(value)"
     }
 
     // TODO:
@@ -273,7 +283,24 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func resetButtonAction(_ sender: AnyObject) {
         tau = 1.0
+        acceleration = 0
+        velocity = 0
+
+        resetTauStepper()
+        accelerationStepper.value = accelerationStepper.minimumValue
+        velocityStepper.value = velocityStepper.minimumValue
         
+        updateTauIndicator(tau)
+        updateVelocityIndicator(velocity)
+        updateAccelerationIndicator(acceleration)
+        
+        reverseTime = false
+        reverseTimeSwitch.isOn = false
+    }
+    
+    func resetTauStepper() {
+        tauStepper.value = 0
+        previousTauStepperValue = 0
     }
     
     @IBAction func settingsButtonAction(_ sender: AnyObject) {
