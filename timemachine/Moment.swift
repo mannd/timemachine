@@ -39,13 +39,26 @@ class Moment {
         }
     }
     
-//    func addSec(sec: TimeInterval) {
-//        date = momentDate.addingTimeInterval(sec)
-//        dateComponents = calendar.components(unitFlags, from: momentDate)
-//    }
+    // return components as strings for convenience
     
     func era() -> String {
         return dateComponents.era == 0 ? "BCE" : "CE"
+    }
+    
+    func year() -> String {
+        return "\(dateComponents.year!)"
+    }
+    
+    func month() -> String {
+        return "\(Time.monthName[dateComponents.month! - 1])"
+    }
+    
+    func day() -> String {
+        return "\(dateComponents.day!)"
+    }
+    
+    func time(dateFormatter: DateFormatter) -> String {
+        return dateFormatter.string(from: date)
     }
     
     

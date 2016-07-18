@@ -124,10 +124,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
         else  {
             tmMoment = Moment(date: tmMoment.date.addingTimeInterval(secDiff))
-            tmYearLabel.text = "\(tmMoment.era()) \(tmMoment.dateComponents.year!)"
-            tmMonthLabel.text = "\(Time.monthName[tmMoment.dateComponents.month! - 1])"
-            tmDayLabel.text = "\(tmMoment.dateComponents.day!)"
-            tmTimeLabel.text = tmTimeFormatter.string(from: tmMoment.date)
+            tmYearLabel.text = "\(tmMoment.era()) \(tmMoment.year())"
+            tmMonthLabel.text = "\(tmMoment.month())"
+            tmDayLabel.text = "\(tmMoment.day())"
+            tmTimeLabel.text = "\(tmMoment.time(dateFormatter: tmTimeFormatter))"
             
 //            tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: secDiff)
 //            tmYearLabel.text = "CE \(tmDateTime.year)"

@@ -134,7 +134,7 @@ class timemachineTests: XCTestCase {
         time6.printDate()
         time7.printDate()
         // Feb leap year
-        var calendar: Calendar = Calendar.current()
+        let calendar: Calendar = Calendar.current()
         let unitFlags: Calendar.Unit = [.hour, .day, .month, .year, .era, .minute, .second, .nanosecond]
         let dc8 = DateComponents(calendar: calendar, timeZone: nil, era: 1, year: 1980, month: 2, day: 1, hour: 0, minute: 0, second: 0, nanosecond: 0, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
         print("dc8 year = \(dc8.year)")
@@ -291,28 +291,28 @@ class timemachineTests: XCTestCase {
         print("Formatted today date = \(dateFormatter.string(from: date))")
     }
     
-    func testMoment() {
-        let moment = Moment()
-        print(moment.dateComponents.day)
-        moment.momentDate = Date()
-        let components = moment.dateComponents
-        print(components.year)
-        print(components.month)
-        print(components.hour)
-        print(components.minute)
-        print(components.second)
-        print(components.nanosecond)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy MMM dd HH:mm:ss.ZZZ"
-        print("today is \(dateFormatter.string(from: moment.momentDate))")
-        print(moment.dateComponents.hour)
-        moment.setTimeZone("UTC")
-        print("UTC hour = \(moment.dateComponents.hour)")
-        let year = moment.dateComponents.year
-        moment.addSec(sec: 365 * 3600 * 24)
-        XCTAssert(moment.dateComponents.year == year! + 1)
-        print(moment.dateComponents.year)
-    }
-    
+//    func testMoment() {
+//        let moment = Moment()
+//        print(moment.dateComponents.day)
+//        moment.momentDate = Date()
+//        let components = moment.dateComponents
+//        print(components.year)
+//        print(components.month)
+//        print(components.hour)
+//        print(components.minute)
+//        print(components.second)
+//        print(components.nanosecond)
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy MMM dd HH:mm:ss.ZZZ"
+//        print("today is \(dateFormatter.string(from: moment.momentDate))")
+//        print(moment.dateComponents.hour)
+//        moment.setTimeZone("UTC")
+//        print("UTC hour = \(moment.dateComponents.hour)")
+//        let year = moment.dateComponents.year
+//        moment.addSec(sec: 365 * 3600 * 24)
+//        XCTAssert(moment.dateComponents.year == year! + 1)
+//        print(moment.dateComponents.year)
+//    }
+//    
     
 }
