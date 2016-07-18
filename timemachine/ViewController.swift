@@ -35,6 +35,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var timer: Timer?
     var originDate: Date = Date()
     var tmDateTime = Time.secsToDateTime(sec: Date().timeIntervalSince1970)
+    // using Moment class now
+    var tmMoment = Moment()
     let originDateFormatter =  DateFormatter()
     let tmYearFormatter = DateFormatter()
     let tmMonthFormatter = DateFormatter()
@@ -118,13 +120,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
             tmMonthLabel.text = tmMonthFormatter.string(from: originDate)
             tmDayLabel.text = tmDayFormatter.string(from: originDate)
             tmTimeLabel.text = tmTimeFormatter.string(from: originDate)
+            tmMoment.date = Date()
         }
         else  {
-            tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: secDiff)
-            tmYearLabel.text = "CE \(tmDateTime.year)"
-            tmMonthLabel.text = "\(Time.monthName[(tmDateTime.month)])"
-            tmDayLabel.text = "\(tmDateTime.day)"
-            tmTimeLabel.text = tmDateTime.formatTime()
+            tmMoment = Moment(date: tmMoment.date.addingTimeInterval(secDiff))
+            tmYearLabel.text = "\(tmMoment.era()) \(tmMoment.dateComponents.year!)"
+            tmMonthLabel.text = "\(Time.monthName[tmMoment.dateComponents.month! - 1])"
+            tmDayLabel.text = "\(tmMoment.dateComponents.day!)"
+            tmTimeLabel.text = tmTimeFormatter.string(from: tmMoment.date)
+            
+//            tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: secDiff)
+//            tmYearLabel.text = "CE \(tmDateTime.year)"
+//            tmMonthLabel.text = "\(Time.monthName[(tmDateTime.month)])"
+//            tmDayLabel.text = "\(tmDateTime.day)"
+//            tmTimeLabel.text = tmDateTime.formatTime()
         }
     }
     
