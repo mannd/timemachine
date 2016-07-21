@@ -37,6 +37,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var tmDateTime = Time.secsToDateTime(sec: Date().timeIntervalSince1970)
     // using Moment class now
     var tmMoment = Moment()
+    var destinationMoment: Moment? = Moment()
     let originDateFormatter =  DateFormatter()
     let tmYearFormatter = DateFormatter()
     let tmMonthFormatter = DateFormatter()
@@ -147,6 +148,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: actions
+
+    @IBAction func setDestination(_ sender: AnyObject) {
+        print("set destination")
+        
+    }
+    
+    @IBAction func clearDestination(_ sender: AnyObject) {
+        destinationLabel.text = ""
+        destinationMoment = nil
+    }
+    
     
     @IBAction func reverseTime(_ sender: AnyObject) {
         reverseTime = reverseTimeSwitch.isOn
@@ -325,6 +337,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         let enableTauStepper = (tauLabel.text != nil && tauLabel.text?.characters.count > 0)
         tauStepper.isUserInteractionEnabled = enableTauStepper
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepare(for: segue, sender: sender)
+        print("prepare for segue")
+        let destination = segue.destinationViewController as! DestinationViewController
+        if let date = destinationMoment?.date {
+            destination.date = date
+            print("destination moment set")
+        }
+
+        
     }
     
     
