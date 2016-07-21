@@ -23,14 +23,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var tmDayLabel: UILabel!
     @IBOutlet weak var tmTimeLabel: UILabel!
     @IBOutlet weak var destinationLabel: UILabel!
-    @IBOutlet weak var tauTextField: UITextField!
+    @IBOutlet weak var tauLabel: UILabel!
     @IBOutlet weak var controlLabel: UILabel!
     @IBOutlet weak var tauStepper: UIStepper!
     @IBOutlet weak var reverseTimeSwitch: UISwitch!
     @IBOutlet weak var velocityStepper: UIStepper!
     @IBOutlet weak var accelerationStepper: UIStepper!
-    @IBOutlet weak var velocityTextField: UITextField!
-    @IBOutlet weak var accelerationTextField: UITextField!
+    @IBOutlet weak var velocityLabel: UILabel!
+    @IBOutlet weak var accelerationLabel: UILabel!
 
     var timer: Timer?
     var originDate: Date = Date()
@@ -77,14 +77,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         print ("\(originDateFormatter.string(from: Date.distantFuture))")
         print ("\(originDateFormatter.string(from: Date.distantPast))")
         // Set up indicators
-        tauTextField.delegate = self
-        tauTextField.text = "1.0"
+        tauLabel.text = "1.0"
         tauStepper.wraps = true
         tauStepper.minimumValue = -10
         tauStepper.maximumValue = 10
         tauStepper.value = 0
-        velocityTextField.text = "0"
-        accelerationTextField.text = "0"
+        velocityLabel.text = "0"
+        accelerationLabel.text = "0"
         velocityStepper.wraps = false
         velocityStepper.minimumValue = 0
         velocityStepper.maximumValue = maxVelocity / velocityStepSize
@@ -123,17 +122,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
             tmMoment.date = Date()
         }
         else  {
-            tmMoment = Moment(date: tmMoment.date.addingTimeInterval(secDiff))
-            tmYearLabel.text = "\(tmMoment.era()) \(tmMoment.year())"
-            tmMonthLabel.text = "\(tmMoment.month())"
-            tmDayLabel.text = "\(tmMoment.day())"
-            tmTimeLabel.text = "\(tmMoment.time(dateFormatter: tmTimeFormatter))"
-            
-//            tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: secDiff)
-//            tmYearLabel.text = "CE \(tmDateTime.year)"
-//            tmMonthLabel.text = "\(Time.monthName[(tmDateTime.month)])"
-//            tmDayLabel.text = "\(tmDateTime.day)"
-//            tmTimeLabel.text = tmDateTime.formatTime()
+//            tmMoment = Moment(date: tmMoment.date.addingTimeInterval(secDiff))
+//            tmYearLabel.text = "\(tmMoment.era()) \(tmMoment.year())"
+//            tmMonthLabel.text = "\(tmMoment.month())"
+//            tmDayLabel.text = "\(tmMoment.day())"
+//            tmTimeLabel.text = "\(tmMoment.time(dateFormatter: tmTimeFormatter))"
+//            
+            tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: secDiff)
+            tmYearLabel.text = "CE \(tmDateTime.year)"
+            tmMonthLabel.text = "\(Time.monthName[(tmDateTime.month)])"
+            tmDayLabel.text = "\(tmDateTime.day)"
+            tmTimeLabel.text = tmDateTime.formatTime()
         }
     }
     
@@ -152,7 +151,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func reverseTime(_ sender: AnyObject) {
         reverseTime = reverseTimeSwitch.isOn
         tau = resignTau(tau)
-        tauTextField.text = "\(tau)"
+        tauLabel.text = "\(tau)"
     }
     
     @IBAction func changeVelocity(_ sender: AnyObject) {
@@ -161,7 +160,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func updateVelocityIndicator(_ value: Double) {
-        velocityTextField.text = String(format: "%.2g", value)
+        velocityLabel.text = String(format: "%.2g", value)
     }
     
     @IBAction func changeAcceleration(_ sender: AnyObject) {
@@ -170,7 +169,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func updateAccelerationIndicator(_ value: Double) {
-        accelerationTextField.text = String(format: "%.3g", value)
+        accelerationLabel.text = String(format: "%.3g", value)
     }
     
     
@@ -217,7 +216,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func updateTauIndicator(_ value: Double) {
-        tauTextField.text = "\(value)"
+        tauLabel.text = "\(value)"
     }
 
     // TODO:
@@ -279,7 +278,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func startButtonAction(_ sender: AnyObject) {
         tau = 1.0
-        if let tauString = tauTextField.text {
+        if let tauString = tauLabel.text {
             if let newTau = Double(tauString) {
                 tau = newTau
             }
@@ -324,7 +323,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let enableTauStepper = (tauTextField.text != nil && tauTextField.text?.characters.count > 0)
+        let enableTauStepper = (tauLabel.text != nil && tauLabel.text?.characters.count > 0)
         tauStepper.isUserInteractionEnabled = enableTauStepper
     }
     
