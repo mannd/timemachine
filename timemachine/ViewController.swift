@@ -34,6 +34,7 @@ class ViewController: UIViewController, UITextFieldDelegate, DestinationViewCont
 
     var timer: Timer?
     var originDate: Date = Date()
+    var lastDate: Date = Date()
     var tmDateTime = Time.secsToDateTime(sec: Date().timeIntervalSince1970)
     // using Moment class now
     var tmMoment = Moment()
@@ -50,14 +51,14 @@ class ViewController: UIViewController, UITextFieldDelegate, DestinationViewCont
     var previousTauStepperValue = 0.0
     var velocity: Double = 0.0
     let maxVelocity = 1.0  // = c
-    let velocityStepSize = 0.01
+    let velocityStepSize = 0.1
     var acceleration: Double = 0.0
     let maxAcceleration = 100.0 // 100 g
     let accelerationStepSize = 0.1
     
     let enabledFontName = "Menlo-Regular"
     let disabledFontName = "Menlo-Italic"
-    let enabledFontSize: CGFloat = 17.0
+    let enabledFontSize: CGFloat = 16.0
     let disabledFontSize: CGFloat = 14.0
     
     let controlTitle = "CONTROL"
@@ -65,6 +66,8 @@ class ViewController: UIViewController, UITextFieldDelegate, DestinationViewCont
     var counter: Int = 0
     var initialDate = Date()
     var reverseTime = false
+    
+//    var updateCounter: Int64 = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,18 +109,18 @@ class ViewController: UIViewController, UITextFieldDelegate, DestinationViewCont
     func timerDidTick() {
         updateOriginTime()
         updateTmTime()
+//        updateCounter += 1
+//        print("\(updateCounter)")
     }
     
     private func updateOriginTime() {
+        lastDate = originDate
         originDate = Date()
         originTimeLabel.text = ("CE \(originDateFormatter.string(from: originDate))")
     }
     
     private func updateTmTime() {
-//        updateTmTimeWithNSDate()
-//        return
-        // test assume tau = 10
-        let secDiff = tau * updateInterval
+        let secDiff = tau * Date().timeIntervalSince(lastDate)
         if tau == 1 {
             tmYearLabel.text = "CE " + tmYearFormatter.string(from: originDate)
             tmMonthLabel.text = tmMonthFormatter.string(from: originDate)
@@ -126,17 +129,20 @@ class ViewController: UIViewController, UITextFieldDelegate, DestinationViewCont
             tmMoment.date = Date()
         }
         else  {
-//            tmMoment = Moment(date: tmMoment.date.addingTimeInterval(secDiff))
-//            tmYearLabel.text = "\(tmMoment.era()) \(tmMoment.year())"
-//            tmMonthLabel.text = "\(tmMoment.month())"
-//            tmDayLabel.text = "\(tmMoment.day())"
-//            tmTimeLabel.text = "\(tmMoment.time(dateFormatter: tmTimeFormatter))"
-//            
-            tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: secDiff)
-            tmYearLabel.text = "CE \(tmDateTime.year)"
-            tmMonthLabel.text = "\(Time.monthName[(tmDateTime.month)])"
-            tmDayLabel.text = "\(tmDateTime.day)"
-            tmTimeLabel.text = tmDateTime.formatTime()
+            // version below uses Moment class based on Swift Date
+            tmMoment = Moment(date: tmMoment.date.addingTimeInterval(secDiff))
+            tmYearLabel.text = "\(tmMoment.era()) \(tmMoment.year())"
+            tmMonthLabel.text = "\(tmMoment.month())"
+            tmDayLabel.text = "\(tmMoment.day())"
+            tmTimeLabel.text = "\(tmMoment.time(dateFormatter: tmTimeFormatter))"
+            
+            // version below uses DateTime class which allows greater time travel range but
+            // doesn't work yet for date subtraction and dates before year 1 CE
+//            tmDateTime = Time.addSecsToDateTime(dateTime: tmDateTime, sec: secDiff)
+//            tmYearLabel.text = "CE \(tmDateTime.year)"
+//            tmMonthLabel.text = "\(Time.monthName[(tmDateTime.month)])"
+//            tmDayLabel.text = "\(tmDateTime.day)"
+//            tmTimeLabel.text = tmDateTime.formatTime()
         }
     }
     
