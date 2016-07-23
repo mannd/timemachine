@@ -8,9 +8,16 @@
 
 import UIKit
 
+protocol DestinationViewControllerDelegate {
+    func setDestinationMoment(date: NSDate)
+}
+
 class DestinationViewController: UIViewController {
     
+
+    
     var date:NSDate = Date()
+    var delegate: DestinationViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +33,7 @@ class DestinationViewController: UIViewController {
 
     @IBAction func setDestinationMoment(_ sender: AnyObject) {
         // for now just dismiss
+        delegate?.setDestinationMoment(date: date)
         dismiss(animated: true, completion: nil)
     }
 

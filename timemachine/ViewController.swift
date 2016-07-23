@@ -13,7 +13,7 @@ enum StepperDirection {
     case Decrement
 }
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, DestinationViewControllerDelegate {
     
 
     // MARK: outlets
@@ -55,7 +55,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     let maxAcceleration = 100.0 // 100 g
     let accelerationStepSize = 0.1
     
-
+    let enabledFontName = "Menlo-Regular"
+    let disabledFontName = "Menlo-Italic"
+    let enabledFontSize: CGFloat = 17.0
+    let disabledFontSize: CGFloat = 14.0
     
     let controlTitle = "CONTROL"
     let updateInterval = 0.001
@@ -149,10 +152,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: actions
 
-    @IBAction func setDestination(_ sender: AnyObject) {
-        print("set destination")
-        
-    }
+//    @IBAction func setDestination(_ sender: AnyObject) {
+//        print("set destination")
+//        
+//    }
     
     @IBAction func clearDestination(_ sender: AnyObject) {
         destinationLabel.text = ""
@@ -168,20 +171,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func changeVelocity(_ sender: AnyObject) {
         velocity = velocityStepper.value * velocityStepSize
-        updateVelocityIndicator(velocity)
+        updateVelocityIndicator()
+        regulateIndicators()
     }
     
-    func updateVelocityIndicator(_ value: Double) {
-        velocityLabel.text = String(format: "%.2g", value)
+    func updateVelocityIndicator() {
+        velocityLabel.text = String(format: "%.2g", velocity)
     }
     
     @IBAction func changeAcceleration(_ sender: AnyObject) {
         acceleration = accelerationStepper.value * accelerationStepSize
-        updateAccelerationIndicator(acceleration)
+        updateAccelerationIndicator()
+        regulateIndicators()
     }
     
-    func updateAccelerationIndicator(_ value: Double) {
-        accelerationLabel.text = String(format: "%.3g", value)
+    func updateAccelerationIndicator() {
+        accelerationLabel.text = String(format: "%.3g", acceleration)
     }
     
     
@@ -206,7 +211,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
         tau = signTau(tau)
-        updateTauIndicator(tau)
+        updateTauIndicator()
+        regulateIndicators()
     }
     
     func unsignTau(_ signedTau: Double) -> Double {
@@ -227,8 +233,44 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return signTau(unsignTau(value))
     }
     
-    func updateTauIndicator(_ value: Double) {
-        tauLabel.text = "\(value)"
+    func updateTauIndicator() {
+        tauLabel.text = "\(tau)"
+    }
+    
+    func regulateIndicators() {
+        if tau != 1 {
+            velocity = 0
+            updateVelocityIndicator()
+            enableIndicator(indicator: velocityLabel, stepper: velocityStepper, value: false)
+            acceleration = 0
+            updateAccelerationIndicator()
+            enableIndicator(indicator: accelerationLabel, stepper: accelerationStepper, value: false)
+        }
+        else {
+            enableIndicator(indicator: velocityLabel, stepper: velocityStepper, value: true)
+            enableIndicator(indicator: accelerationLabel, stepper: accelerationStepper, value: true)
+        }
+        if velocity > 0 || acceleration > 0 {
+            tau = 1
+            updateTauIndicator()
+            reverseTime = false
+            reverseTimeSwitch.isOn = false
+            enableIndicator(indicator: tauLabel, stepper: tauStepper, value: false)
+        }
+        else {
+            enableIndicator(indicator: tauLabel, stepper: tauStepper, value: true)
+        }
+    }
+    
+    func enableIndicator(indicator: UILabel, stepper: UIStepper, value: Bool) {
+        if value {
+            indicator.font = UIFont(name: enabledFontName, size: enabledFontSize)
+        }
+        else {
+            indicator.font = UIFont(name: disabledFontName, size: disabledFontSize)
+            stepper.value = 0
+        }
+        stepper.isEnabled = value
     }
 
     // TODO:
@@ -310,12 +352,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         accelerationStepper.value = accelerationStepper.minimumValue
         velocityStepper.value = velocityStepper.minimumValue
         
-        updateTauIndicator(tau)
-        updateVelocityIndicator(velocity)
-        updateAccelerationIndicator(acceleration)
+        updateTauIndicator()
+        updateVelocityIndicator()
+        updateAccelerationIndicator()
         
         reverseTime = false
         reverseTimeSwitch.isOn = false
+        regulateIndicators()
     }
     
     func resetTauStepper() {
@@ -343,12 +386,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.prepare(for: segue, sender: sender)
         print("prepare for segue")
         let destination = segue.destinationViewController as! DestinationViewController
+        destination.delegate = self
         if let date = destinationMoment?.date {
             destination.date = date
             print("destination moment set")
         }
+    
 
         
+    }
+    
+    // MARK: Delegate
+    func setDestinationMoment(date: NSDate) {
+        // nothing
+        print("set destination moment to \(date)")
     }
     
     
