@@ -13,7 +13,7 @@ enum StepperDirection {
     case Decrement
 }
 
-class ViewController: UIViewController, UITextFieldDelegate, DestinationViewControllerDelegate {
+class ViewController: UIViewController {
     
 
     // MARK: outlets
@@ -74,12 +74,12 @@ class ViewController: UIViewController, UITextFieldDelegate, DestinationViewCont
         // Do any additional setup after loading the view, typically from a nib.
         timer = Timer.scheduledTimer(timeInterval: updateInterval, target: self, selector: #selector(timerDidTick), userInfo: nil, repeats: true)
         originDateFormatter.dateFormat = "yyyy MMM d HH:mm:ss"
-        originDateFormatter.timeZone = TimeZone(name: "UTC")
+        originDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         tmYearFormatter.dateFormat = "yyyy"
         tmMonthFormatter.dateFormat = "MMM"
         tmDayFormatter.dateFormat = "d"
         tmTimeFormatter.dateFormat = "HH:mm:ss"
-        tmTimeFormatter.timeZone = TimeZone(name: "UTC")
+        tmTimeFormatter.timeZone = TimeZone(abbreviation: "UTC")
         // TODO: remove
         print ("\(originDateFormatter.string(from: Date.distantFuture))")
         print ("\(originDateFormatter.string(from: Date.distantPast))")
@@ -158,11 +158,6 @@ class ViewController: UIViewController, UITextFieldDelegate, DestinationViewCont
     
     // MARK: actions
 
-//    @IBAction func setDestination(_ sender: AnyObject) {
-//        print("set destination")
-//        
-//    }
-    
     @IBAction func clearDestination(_ sender: AnyObject) {
         destinationLabel.text = ""
         destinationMoment = nil
@@ -378,40 +373,16 @@ class ViewController: UIViewController, UITextFieldDelegate, DestinationViewCont
     @IBAction func helpButtonAction(_ sender: AnyObject) {
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        let enableTauStepper = (tauLabel.text != nil && tauLabel.text?.characters.count > 0)
-        tauStepper.isUserInteractionEnabled = enableTauStepper
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepare(for: segue, sender: sender)
         print("prepare for segue")
-        let destination = segue.destinationViewController as! DestinationViewController
-        destination.delegate = self
+        let destination = segue.destination as! DestinationViewController
         if let date = destinationMoment?.date {
             destination.date = date
             print("destination moment set")
         }
-    
-
-        
     }
     
-    // MARK: Delegate
-    func setDestinationMoment(date: NSDate) {
-        // nothing
-        print("set destination moment to \(date)")
-    }
-    
-    
-    
-
-
 
 }
 

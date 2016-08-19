@@ -11,31 +11,29 @@ import Foundation
 class Moment {
     var date: Date = Date()
     var dateComponents: DateComponents
-    let calendar: Calendar = Calendar.current()
-    let unitFlags: Calendar.Unit = [.era, .timeZone, .year, .month, .day, .hour, .minute, .second, .nanosecond]
+    var calendar = Calendar.current
+//    let unitFlags = Set(Calendar.Component.era) //, .timeZone, .year, .month, .day, .hour, .minute, .second, .nanosecond>
 
 //    let calendar = Calendar(calendarIdentifier: Calendar.Identifier(rawValue: NSGregorianCalendar))
     
 //    let date = NSDate()
-//    let unitFlags: NSCalendarUnit = [.Hour, .Day, .Month, .Year]
+    let unitFlags = Set<Calendar.Component>([.era, .timeZone, .year, .month, .day, .hour, .minute, .second, .nanosecond])
 //    let components = NSCalendar.currentCalendar().components(unitFlags, fromDate: date)
     
     convenience init() {
         self.init(date: Date())
-//        dateComponents = calendar.components(unitFlags, from: date)
     }
     
     init(date: Date) {
         self.date = date
         calendar.timeZone = TimeZone(abbreviation: "UTC")!
-        dateComponents = calendar.components(unitFlags, from: date)
+        dateComponents = calendar.dateComponents(unitFlags, from: date)
     }
     
     func setTimeZone(_ tz: String) {
         if let timeZone = TimeZone(abbreviation: tz) {
             calendar.timeZone = timeZone
-            
-            dateComponents = calendar.components(unitFlags, from: date)
+            dateComponents = calendar.dateComponents(unitFlags, from: date)
         }
     }
     

@@ -12,17 +12,47 @@ protocol DestinationViewControllerDelegate {
     func setDestinationMoment(date: NSDate)
 }
 
-class DestinationViewController: UIViewController {
+class DestinationViewController: UIViewController,
+    UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
+    var monthPicker = UIPickerView()
+    var monthData = [
+        "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL",
+        "AUG", "SEP", "OCT", "NOV", "DEC"
+    ]
+    let monthTag = 9999
+    
+    var timePicker = UIDatePicker()
 
+    @IBOutlet weak var yearTextField: UITextField!
+    @IBOutlet weak var monthTextField: UITextField!
+    @IBOutlet weak var timeTextField: UITextField!
     
-    var date:NSDate = Date()
+    var date = Date()
     var delegate: DestinationViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
+        monthPicker.dataSource = self
+        monthPicker.delegate = self
+        monthPicker.tag = monthTag
+        monthTextField.inputView = monthPicker
+        
+        
+        timePicker.datePickerMode = UIDatePickerMode.time
+        timeTextField.inputView = timePicker
+        timePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+        
+        yearTextField.delegate = self
+    }
+    
+    @objc func dateChanged(sender: UIDatePicker) {
+        print(sender.date.description)
+        let date = timePicker.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        timeTextField.text = dateFormatter.string(from: date)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,7 +63,7 @@ class DestinationViewController: UIViewController {
 
     @IBAction func setDestinationMoment(_ sender: AnyObject) {
         // for now just dismiss
-        delegate?.setDestinationMoment(date: date)
+        delegate?.setDestinationMoment(date: date as NSDate)
         dismiss(animated: true, completion: nil)
     }
 
@@ -50,5 +80,49 @@ class DestinationViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView.tag == monthTag {
+            return monthData.count
+        }
+        else {
+            return 0
+        }
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView.tag == monthTag {
+            return monthData[row]
+        }
+        else {
+            return nil
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView.tag == monthTag {
+            monthTextField.text = monthData[row]
+            monthTextField.resignFirstResponder()
+        }
+        else {
+            let date = timePicker.date
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a"
+            timeTextField.text = dateFormatter.string(from: date)
+            timeTextField.resignFirstResponder()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        textField.resignFirstResponder()
+        return false
+    }
+    
+    
 
 }
