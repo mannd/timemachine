@@ -27,6 +27,8 @@ class DestinationViewController: UIViewController,
     @IBOutlet weak var yearTextField: UITextField!
     @IBOutlet weak var monthTextField: UITextField!
     @IBOutlet weak var timeTextField: UITextField!
+    @IBOutlet weak var dayTextField: UITextField!
+    @IBOutlet weak var eraSegmentedControl: UISegmentedControl!
     
     var date = Date()
     var delegate: DestinationViewControllerDelegate?
@@ -39,12 +41,33 @@ class DestinationViewController: UIViewController,
         monthPicker.tag = monthTag
         monthTextField.inputView = monthPicker
         
-        
         timePicker.datePickerMode = UIDatePickerMode.time
         timeTextField.inputView = timePicker
         timePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
         
         yearTextField.delegate = self
+        dayTextField.delegate = self
+        // if no previous destination, make destination moment = now
+        var destinationMoment = Moment()
+        if destinationMoment.era() == .BCE {
+            eraSegmentedControl.selectedSegmentIndex = 0
+        }
+        else {
+            eraSegmentedControl.selectedSegmentIndex = 1
+        }
+        yearTextField.text = destinationMoment.year()
+        monthTextField.text = destinationMoment.month()
+        monthPicker.selectRow(destinationMoment.monthNumber(), inComponent: 0, animated: false)
+        dayTextField.text = destinationMoment.day()
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+        timeTextField.text = destinationMoment.time(dateFormatter: timeFormatter)
+        timePicker.date = destinationMoment.date
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
     }
     
     @objc func dateChanged(sender: UIDatePicker) {

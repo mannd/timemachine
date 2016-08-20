@@ -12,13 +12,7 @@ class Moment {
     var date: Date = Date()
     var dateComponents: DateComponents
     var calendar = Calendar.current
-//    let unitFlags = Set(Calendar.Component.era) //, .timeZone, .year, .month, .day, .hour, .minute, .second, .nanosecond>
-
-//    let calendar = Calendar(calendarIdentifier: Calendar.Identifier(rawValue: NSGregorianCalendar))
-    
-//    let date = NSDate()
     let unitFlags = Set<Calendar.Component>([.era, .timeZone, .year, .month, .day, .hour, .minute, .second, .nanosecond])
-//    let components = NSCalendar.currentCalendar().components(unitFlags, fromDate: date)
     
     convenience init() {
         self.init(date: Date())
@@ -43,12 +37,20 @@ class Moment {
         return dateComponents.era == 0 ? "BCE" : "CE"
     }
     
+    func era() -> Era {
+        return dateComponents.era == 0 ? .BCE : .CE
+    }
+    
     func year() -> String {
         return "\(dateComponents.year!)"
     }
     
     func month() -> String {
         return "\(Time.monthName[dateComponents.month! - 1])"
+    }
+    
+    func monthNumber() -> Int {
+        return dateComponents.month! - 1
     }
     
     func day() -> String {
