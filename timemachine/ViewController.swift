@@ -13,7 +13,7 @@ enum StepperDirection {
     case Decrement
 }
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, DestinationViewControllerDelegate {
     
 
     // MARK: outlets
@@ -80,9 +80,6 @@ class ViewController: UIViewController {
         tmDayFormatter.dateFormat = "d"
         tmTimeFormatter.dateFormat = "HH:mm:ss"
         tmTimeFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        // TODO: remove
-        print ("\(originDateFormatter.string(from: Date.distantFuture))")
-        print ("\(originDateFormatter.string(from: Date.distantPast))")
         // Set up indicators
         tauLabel.text = "1.0"
         tauStepper.wraps = true
@@ -153,6 +150,11 @@ class ViewController: UIViewController {
         tmMonthLabel.text = tmMonthFormatter.string(from: initialDate)
         tmDayLabel.text = tmDayFormatter.string(from: initialDate)
         tmTimeLabel.text = tmTimeFormatter.string(from: initialDate)
+    }
+    
+    private func setDestinationIndicator(moment: Moment) {
+        let text = moment.formattedMoment()
+        destinationLabel.text = text
         
     }
     
@@ -162,6 +164,8 @@ class ViewController: UIViewController {
         destinationLabel.text = ""
         destinationMoment = nil
     }
+    
+    
     
     
     @IBAction func reverseTime(_ sender: AnyObject) {
@@ -373,15 +377,22 @@ class ViewController: UIViewController {
     @IBAction func helpButtonAction(_ sender: AnyObject) {
     }
     
-    func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         print("prepare for segue")
         let destination = segue.destination as! DestinationViewController
-        if let date = destinationMoment?.date {
-            destination.date = date
+        if let moment = destinationMoment {
+            destination.delegate = self
+            destination.destinationMoment = moment
             print("destination moment set")
         }
     }
+    
+    func setDestinationMoment(moment: Moment) {
+        destinationMoment = moment
+        setDestinationIndicator(moment: moment)
+    }
+
     
 
 }

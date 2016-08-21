@@ -9,7 +9,7 @@
 import UIKit
 
 protocol DestinationViewControllerDelegate {
-    func setDestinationMoment(date: NSDate)
+    func setDestinationMoment(moment: Moment)
 }
 
 class DestinationViewController: UIViewController,
@@ -30,7 +30,7 @@ class DestinationViewController: UIViewController,
     @IBOutlet weak var dayTextField: UITextField!
     @IBOutlet weak var eraSegmentedControl: UISegmentedControl!
     
-    var date = Date()
+    var destinationMoment = Moment()
     var delegate: DestinationViewControllerDelegate?
 
     override func viewDidLoad() {
@@ -48,7 +48,6 @@ class DestinationViewController: UIViewController,
         yearTextField.delegate = self
         dayTextField.delegate = self
         // if no previous destination, make destination moment = now
-        var destinationMoment = Moment()
         if destinationMoment.era() == .BCE {
             eraSegmentedControl.selectedSegmentIndex = 0
         }
@@ -61,8 +60,11 @@ class DestinationViewController: UIViewController,
         dayTextField.text = destinationMoment.day()
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "h:mm a"
+        timeFormatter.timeZone = TimeZone(abbreviation: "UTC")
         timeTextField.text = destinationMoment.time(dateFormatter: timeFormatter)
         timePicker.date = destinationMoment.date
+        
+        //
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -85,14 +87,15 @@ class DestinationViewController: UIViewController,
     
 
     @IBAction func setDestinationMoment(_ sender: AnyObject) {
-        // for now just dismiss
-        delegate?.setDestinationMoment(date: date as NSDate)
+        print(destinationMoment.formattedMoment())
+        delegate?.setDestinationMoment(moment: destinationMoment)
         dismiss(animated: true, completion: nil)
     }
 
     
     
     @IBAction func cancel(_ sender: AnyObject) {
+        print("Cancel")
         dismiss(animated: true, completion: nil)
     }
     

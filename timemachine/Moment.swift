@@ -13,6 +13,7 @@ class Moment {
     var dateComponents: DateComponents
     var calendar = Calendar.current
     let unitFlags = Set<Calendar.Component>([.era, .timeZone, .year, .month, .day, .hour, .minute, .second, .nanosecond])
+    let formatter = DateFormatter()
     
     convenience init() {
         self.init(date: Date())
@@ -22,6 +23,9 @@ class Moment {
         self.date = date
         calendar.timeZone = TimeZone(abbreviation: "UTC")!
         dateComponents = calendar.dateComponents(unitFlags, from: date)
+        formatter.dateFormat = "Y MMM d hh:mm:ss a"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        
     }
     
     func setTimeZone(_ tz: String) {
@@ -59,6 +63,10 @@ class Moment {
     
     func time(dateFormatter: DateFormatter) -> String {
         return dateFormatter.string(from: date)
+    }
+    
+    func formattedMoment() -> String {
+        return "\(era()) \(time(dateFormatter: formatter))"
     }
     
     

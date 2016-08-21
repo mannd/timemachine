@@ -134,13 +134,13 @@ class timemachineTests: XCTestCase {
         time6.printDate()
         time7.printDate()
         // Feb leap year
-        let calendar: Calendar = Calendar.current()
-        let unitFlags: Calendar.Unit = [.hour, .day, .month, .year, .era, .minute, .second, .nanosecond]
+        let calendar: Calendar = Calendar.current
+        let unitFlags = Set<Calendar.Component>([.era, .timeZone, .year, .month, .day, .hour, .minute, .second, .nanosecond])
         let dc8 = DateComponents(calendar: calendar, timeZone: nil, era: 1, year: 1980, month: 2, day: 1, hour: 0, minute: 0, second: 0, nanosecond: 0, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
         print("dc8 year = \(dc8.year)")
         let dc8Date: Date = dc8.date!
         let newDate = dc8Date.addingTimeInterval(Double(28 * Time.secsInDay))
-        let dc9 = calendar.components(unitFlags, from: newDate)
+        let dc9 = calendar.dateComponents(unitFlags, from: newDate)
         let dc10 = DateComponents(calendar: calendar, timeZone: nil, era: 1, year: 1980, month: 2, day: 29, hour: 0, minute: 0, second: 0, nanosecond: 0, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
         XCTAssert(dc9.day == dc10.day)
         print(dc9.month)
@@ -315,4 +315,14 @@ class timemachineTests: XCTestCase {
 //    }
 //    
     
+    func testMomentFormatting() {
+        let date = Date(timeIntervalSince1970: 0)
+        let moment = Moment(date: date)
+        print(moment.date)
+        print(moment.formattedMoment())
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "y MMM d hh:mm:ss a"
+        print(moment.time(dateFormatter: dateFormat))
+        XCTAssert(moment.formattedMoment() == "CE 1970 Jan 1 12:00:00 AM")
+    }
 }
