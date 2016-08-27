@@ -17,8 +17,8 @@ class DestinationViewController: UIViewController,
     
     var monthPicker = UIPickerView()
     var monthData = [
-        "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL",
-        "AUG", "SEP", "OCT", "NOV", "DEC"
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+        "Aug", "Sep", "Oct", "Nov", "Dec"
     ]
     let monthTag = 9999
     
@@ -59,10 +59,11 @@ class DestinationViewController: UIViewController,
         monthPicker.selectRow(destinationMoment.monthNumber(), inComponent: 0, animated: false)
         dayTextField.text = destinationMoment.day()
         let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "h:mm a"
-        timeFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        timeFormatter.dateFormat = "HH:mm"
+        timeFormatter.timeZone = Moment.UtcTimeZone()
         timeTextField.text = destinationMoment.time(dateFormatter: timeFormatter)
         timePicker.date = destinationMoment.date
+        timePicker.timeZone = Moment.UtcTimeZone()
         
         //
     }
@@ -76,7 +77,8 @@ class DestinationViewController: UIViewController,
         print(sender.date.description)
         let date = timePicker.date
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.timeZone = Moment.UtcTimeZone()
         timeTextField.text = dateFormatter.string(from: date)
     }
 
@@ -87,6 +89,9 @@ class DestinationViewController: UIViewController,
     
 
     @IBAction func setDestinationMoment(_ sender: AnyObject) {
+        // MARK: TODO
+        // set destinationMoment to results of textfields here
+//        destinationMoment = Moment(era: .CE, year: Int(yearTextField.text!)!, month: 0, day: Int(dayTextField.text!)!, hour: 0, minute: 0, second: 0)
         print(destinationMoment.formattedMoment())
         delegate?.setDestinationMoment(moment: destinationMoment)
         dismiss(animated: true, completion: nil)
@@ -137,7 +142,7 @@ class DestinationViewController: UIViewController,
         else {
             let date = timePicker.date
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "h:mm a"
+            dateFormatter.dateFormat = "H:mm"
             timeTextField.text = dateFormatter.string(from: date)
             timeTextField.resignFirstResponder()
         }

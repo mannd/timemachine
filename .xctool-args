@@ -1,0 +1,6 @@
+[
+    "-project", "timemachine.xcodeproj",
+    "-scheme", "timemachine",
+    "-configuration", "Release",
+    "-destination", "platform=iOS Simulator,name=iPhone 6,OS=10.0"
+]

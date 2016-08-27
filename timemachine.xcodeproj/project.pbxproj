@@ -16,8 +16,14 @@
 		8E4D45451D08B83400468D56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E4D45431D08B83400468D56 /* LaunchScreen.storyboard */; };
 		8E4D45501D08B83400468D56 /* timemachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D454F1D08B83400468D56 /* timemachineTests.swift */; };
 		8E4D455B1D08B83400468D56 /* timemachineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D455A1D08B83400468D56 /* timemachineUITests.swift */; };
+		8E83CC661D6CF62900AEBDA7 /* DestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF76491D417AB1008DC652 /* DestinationViewController.swift */; };
+		8E83CC671D6CF64800AEBDA7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D453C1D08B83400468D56 /* ViewController.swift */; };
+		8E83CC681D6CF65100AEBDA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D453A1D08B83400468D56 /* AppDelegate.swift */; };
 		8EBF764A1D417AB1008DC652 /* DestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF76491D417AB1008DC652 /* DestinationViewController.swift */; };
 		8EBF764B1D417AB1008DC652 /* DestinationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF76491D417AB1008DC652 /* DestinationViewController.swift */; };
+		8ED39B711D6CF7970053EDF8 /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E378FF71D3AC36C00D98BFE /* Moment.swift */; };
+		8ED39B721D6CF7A20053EDF8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D453C1D08B83400468D56 /* ViewController.swift */; };
+		8ED39B731D6CF7C00053EDF8 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDF099F1D1B5F2200774D70 /* Time.swift */; };
 		8EDF09A01D1B5F2200774D70 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDF099F1D1B5F2200774D70 /* Time.swift */; };
 		8EDF09A11D1B5F2200774D70 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDF099F1D1B5F2200774D70 /* Time.swift */; };
 /* End PBXBuildFile section */
@@ -285,9 +291,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E83CC681D6CF65100AEBDA7 /* AppDelegate.swift in Sources */,
+				8E83CC671D6CF64800AEBDA7 /* ViewController.swift in Sources */,
 				8EDF09A11D1B5F2200774D70 /* Time.swift in Sources */,
 				8E4D45501D08B83400468D56 /* timemachineTests.swift in Sources */,
 				8E378FF91D3AC36C00D98BFE /* Moment.swift in Sources */,
+				8E83CC661D6CF62900AEBDA7 /* DestinationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +306,9 @@
 			files = (
 				8E4D455B1D08B83400468D56 /* timemachineUITests.swift in Sources */,
 				8EBF764B1D417AB1008DC652 /* DestinationViewController.swift in Sources */,
+				8ED39B731D6CF7C00053EDF8 /* Time.swift in Sources */,
+				8ED39B721D6CF7A20053EDF8 /* ViewController.swift in Sources */,
+				8ED39B711D6CF7970053EDF8 /* Moment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

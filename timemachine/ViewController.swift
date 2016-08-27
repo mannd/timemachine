@@ -74,12 +74,12 @@ class ViewController: UIViewController, DestinationViewControllerDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         timer = Timer.scheduledTimer(timeInterval: updateInterval, target: self, selector: #selector(timerDidTick), userInfo: nil, repeats: true)
         originDateFormatter.dateFormat = "yyyy MMM d HH:mm:ss"
-        originDateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        originDateFormatter.timeZone = Moment.UtcTimeZone()
         tmYearFormatter.dateFormat = "yyyy"
         tmMonthFormatter.dateFormat = "MMM"
         tmDayFormatter.dateFormat = "d"
         tmTimeFormatter.dateFormat = "HH:mm:ss"
-        tmTimeFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        tmTimeFormatter.timeZone = Moment.UtcTimeZone()
         // Set up indicators
         tauLabel.text = "1.0"
         tauStepper.wraps = true
