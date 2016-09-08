@@ -325,4 +325,21 @@ class timemachineTests: XCTestCase {
         print(moment.time(dateFormatter: dateFormat))
         XCTAssert(moment.formattedMoment() == "CE 1970 Jan 1 12:00:00 AM")
     }
+
+    func testMomentInit() {
+        let moment = Moment(era: Era.CE, year: 1970, month: 0, day: 1, hour: 0, minute: 0, second: 0)
+        let date = moment.date
+        XCTAssert(moment.dateComponents.year == 1970)
+        XCTAssert(moment.year() == "1970")
+        XCTAssert(moment.dateComponents.month == 0)
+        XCTAssert(moment.month() == "Jan")
+        XCTAssert(moment.dateComponents.day == 1)
+        XCTAssert(moment.day() == "1")
+        XCTAssert(moment.era() == "CE")
+        let dateFormatter = DateFormatter()
+        dateFormatter.format = "hh:MM:ss"
+        XCTAssert(moment.time(dateFormatter: dateFormatter) == "00:00:00")
+        //XCTAssert(moment.formattedMoment() == "CE 1970 Jan 1 00:00:00")
+    }
 }
+

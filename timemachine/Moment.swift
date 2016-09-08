@@ -14,7 +14,8 @@ class Moment {
     var calendar = Calendar.current
     let unitFlags = Set<Calendar.Component>([.era, .timeZone, .year, .month, .day, .hour, .minute, .second, .nanosecond])
     let formatter = DateFormatter()
-    
+    let defaultDateFormat = "Y MMM d hh:mm:ss a"
+    // test
     static func UtcTimeZone() -> TimeZone! {
         return TimeZone(abbreviation: "UTC")
     }
@@ -27,7 +28,7 @@ class Moment {
         self.date = date
         calendar.timeZone = Moment.UtcTimeZone()
         dateComponents = calendar.dateComponents(unitFlags, from: date)
-        formatter.dateFormat = "Y MMM d hh:mm:ss a"
+        formatter.dateFormat = defaultDateFormat
         formatter.timeZone = Moment.UtcTimeZone()
         
     }
@@ -86,15 +87,11 @@ class Moment {
     }
     
     func time(dateFormatter: DateFormatter) -> String {
-        return dateFormatter.string(from: date)
+        return dateFormatter.string(from: date) // 
     }
     
     func formattedMoment() -> String {
         return "\(era()) \(time(dateFormatter: formatter))"
     }
-    
-    
-    
-    
 
 }

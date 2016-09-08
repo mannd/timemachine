@@ -1,6 +1,6 @@
 # Makefile for commandline compilation of iOS project timemachine
 
-BUILD=xcodebuild
+XBUILD=xcodebuild
 SCHEME=timemachine
 PROJECT=timemachine.xcodeproj
 SRCDIR=timemachine
@@ -16,18 +16,23 @@ BUILDARGS= -project $(PROJECT) -scheme $(SCHEME) -destination $(DESTINATION) | $
 
 TESTDIR=timemachineTests
 TESTSRC=$(TESTDIR)/timemachineTests.swift
+TARGET=/Users/mannd/Library/Developer/Xcode/DerivedData/timemachine-avursipbudhdchabfgotlxvkmpjt/Build/Products/Debug-iphonesimulator/timemachine.app
 
-timemachine : $(SRC)
-	$(BUILD) $(BUILDARGS)
 
-test : $(TESTSRC) $(SRC)
-	$(BUILD) test $(BUILDARGS)
+.PHONY: build test clean run
+build :
+	$(XBUILD) $(BUILDARGS)
+
+test : 
+	$(XBUILD) test $(BUILDARGS)
 
 clean :
-	$(BUILD) clean $(BUILDARGS)
+	$(XBUILD) clean $(BUILDARGS)
 
 # this command won't return
 # in emacs halt with C-c C-k
 run :
-	ios-sim launch --devicetypeid "iPhone-6, 10.0" /Users/mannd/Library/Developer/Xcode/DerivedData/timemachine-avursipbudhdchabfgotlxvkmpjt/Build/Products/Debug-iphonesimulator/timemachine.app
+	ios-sim launch --devicetypeid "iPhone-6, 10.0" $(TARGET)
+
+
 
