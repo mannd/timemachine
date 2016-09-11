@@ -61,7 +61,7 @@ class Time {
     static let secsInMin: Int64 = 60
     static let secsInHour: Int64 = secsInMin * 60
     static let secsIn365DayYear = 365 * secsInDay
-        
+    static let UtcTimeZone = TimeZone(abbreviation: "UTC")!
     static var yearTable: [[Int]] = {
             return [
                 [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],

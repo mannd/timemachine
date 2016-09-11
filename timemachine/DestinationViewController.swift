@@ -60,10 +60,10 @@ class DestinationViewController: UIViewController,
         dayTextField.text = destinationMoment.day()
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
-        timeFormatter.timeZone = Moment.UtcTimeZone()
+        timeFormatter.timeZone = Time.UtcTimeZone
         timeTextField.text = destinationMoment.time(dateFormatter: timeFormatter)
         timePicker.date = destinationMoment.date
-        timePicker.timeZone = Moment.UtcTimeZone()
+        timePicker.timeZone = Time.UtcTimeZone
         
         //
     }
@@ -78,7 +78,7 @@ class DestinationViewController: UIViewController,
         let date = timePicker.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        dateFormatter.timeZone = Moment.UtcTimeZone()
+        dateFormatter.timeZone = Time.UtcTimeZone
         timeTextField.text = dateFormatter.string(from: date)
     }
 
