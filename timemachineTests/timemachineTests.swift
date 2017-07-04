@@ -80,18 +80,22 @@ class timemachineTests: XCTestCase {
         XCTAssert(Time.monthName[9] == "Oct")
         XCTAssert(Time.monthName[10] == "Nov")
         XCTAssert(Time.monthName[11] == "Dec")
+    }
 
+    func testMonthNumberToNames() {
+        XCTAssert(Time.monthNumberToName(number: 1) == "Jan")
+        XCTAssert(Time.monthNumberToName(number: 12) == "Dec")
     }
     
     func testTime() {
-        print("Max sec = \(Time.maxSec)")
-        print("Min sec = \(Time.minSec)")
+        debugPrint("Max sec = \(Time.maxSec)")
+        debugPrint("Min sec = \(Time.minSec)")
         XCTAssert(Time.epochYear == 1970)
         let epoch = Time.secsToDateTime(sec: 0)
         XCTAssert(epoch.year == Time.epochYear)
         XCTAssert(epoch.sec == 0)
         let dateTime = Time.secsToDateTime(sec: 365 * 3600 * 24)
-        print ("dateTime.year = \(dateTime.year)")
+        debugPrint ("dateTime.year = \(dateTime.year)")
         XCTAssert(dateTime.year == 1971)
         XCTAssert(dateTime.month == 0)
         XCTAssert(dateTime.day == 1)
@@ -327,18 +331,18 @@ class timemachineTests: XCTestCase {
     }
 
     func testMomentInit() {
-        let moment = Moment(era: Era.CE, year: 1970, month: 0, day: 1, hour: 0, minute: 0, second: 0)
-        let date = moment.date
+        let moment = Moment(era: Era.CE, year: 1970, month: 1, day: 1, hour: 0, minute: 0, second: 0)
         XCTAssert(moment.dateComponents.year == 1970)
         XCTAssert(moment.year() == "1970")
-        XCTAssert(moment.dateComponents.month == 0)
+        XCTAssert(moment.dateComponents.month == 1)
         XCTAssert(moment.month() == "Jan")
         XCTAssert(moment.dateComponents.day == 1)
         XCTAssert(moment.day() == "1")
         XCTAssert(moment.era() == "CE")
         let dateFormatter = DateFormatter()
-        dateFormatter.format = "hh:MM:ss"
-        XCTAssert(moment.time(dateFormatter: dateFormatter) == "00:00:00")
+        dateFormatter.dateFormat = "hh:MM:ss"
+        XCTAssert(moment.time(dateFormatter: dateFormatter) == "CE 00:00:00")
+        debugPrint(moment.time(dateFormatter: dateFormatter))
         //XCTAssert(moment.formattedMoment() == "CE 1970 Jan 1 00:00:00")
     }
 }

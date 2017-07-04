@@ -19,7 +19,7 @@ class Moment {
     convenience init() {
         self.init(date: Date())
     }
-    
+
     init(date: Date) {
         self.date = date
         calendar.timeZone = Time.UtcTimeZone
@@ -55,7 +55,7 @@ class Moment {
     
     // return components as strings for convenience
     
-    func era() -> String {
+    func eraAsString() -> String {
         return dateComponents.era == 0 ? "BCE" : "CE"
     }
     
@@ -68,7 +68,7 @@ class Moment {
     }
     
     func month() -> String {
-        return "\(Time.monthName[dateComponents.month! - 1])"
+        return "\(Time.monthName[dateComponents.month!])"
     }
     
     func monthNumber() -> Int {
@@ -84,7 +84,7 @@ class Moment {
     }
     
     func formattedMoment() -> String {
-        return "\(era()) \(time(dateFormatter: formatter))"
+        return "\(eraAsString()) \(time(dateFormatter: formatter))"
     }
 
 }

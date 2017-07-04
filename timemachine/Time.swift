@@ -26,6 +26,7 @@ struct DateTime {
         let date = (era == Era.CE ? "CE ": "BCE ") + "\(year) \(Time.monthName[month]) \(day) \(hour):\(min):\(sec)"
         print(date)
     }
+    
     func formatTime() -> String {
         let hourString = hour < 10 ? "0\(hour)" : "\(hour)"
         let minString = min < 10 ? "0\(min)" : "\(min)"
@@ -72,6 +73,10 @@ class Time {
     static var monthName: [String] = {
         return ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     }()
+
+    static func monthNumberToName(number: Int) -> String {
+        return monthName[number - 1]
+    }
 
     static func isLeapYear(year: Int64) -> Bool {
         return leapYear(year: year) == 1
@@ -219,12 +224,12 @@ class Time {
         let hourCarry = newDateTime.min / 60
         newDateTime.min %= 60
         newDateTime.hour += hourCarry
-        let dayCarry = newDateTime.hour / 24
+        let dayCarry = Int64(newDateTime.hour / 24)
         newDateTime.hour %= 24
         dayDiff += dayCarry  // total days to add to starting date
         
         // this is wrong, and it is key
-        var dayNumber = Int(Int64(dateTime.sec) / secsInDay) + dayDiff
+        var dayNumber = (Int64(dateTime.sec) / secsInDay) + dayDiff
 
         
         

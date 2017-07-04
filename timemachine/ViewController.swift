@@ -129,7 +129,7 @@ class ViewController: UIViewController, DestinationViewControllerDelegate {
         else  {
             // version below uses Moment class based on Swift Date
             tmMoment = Moment(date: tmMoment.date.addingTimeInterval(secDiff))
-            tmYearLabel.text = "\(tmMoment.era()) \(tmMoment.year())"
+            tmYearLabel.text = "\(tmMoment.eraAsString()) \(tmMoment.year())"
             tmMonthLabel.text = "\(tmMoment.month())"
             tmDayLabel.text = "\(tmMoment.day())"
             tmTimeLabel.text = "\(tmMoment.time(dateFormatter: tmTimeFormatter))"
